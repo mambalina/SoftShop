@@ -1,0 +1,80 @@
+/*.group_of_pictures{*/
+/*position: absolute;*/
+/*left: 15px;*/
+/*top: 80px;*/
+/*bottom: 60px;*/
+/*overflow: hidden;*/
+/*display: block;*/
+/*}*/
+.pictures{
+    padding-top: 45px;
+}
+.group_of_pictures{
+    margin-right: 18px!important;
+}
+.one_pic img{
+    padding-bottom: 18px;
+    width: 100px;
+}
+.main_image img{
+    width: 455px;
+}
+.about-boots{
+    margin-left: 100px;
+}
+h3{
+    font-size: 20px;
+}
+.about-boots p {
+    margin-top: 10%;
+    font-size: 16px;
+    width: 320pt;
+    font-family: 'HelveticaNeueCyr-Roman', sans-serif;
+}
+a img{
+    margin-left: 10px;
+}
+.sizes .row{
+    margin-right: 0;
+    margin-left: 0;
+}
+.size{
+    width: 64px;
+    height: 30px;
+    padding: 6px;
+    background: #fff;
+    border: 1px solid #C4C4C4;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'HelveticaNeueCyr-Roman', sans-serif;
+    font-size: 18px;
+    padding-bottom: 30px
+
+}
+.size:hover{
+    background: #393B3B;
+    color: white;
+    border: 1px solid #393B3B;
+}
+.one_pic img:hover, .main_image img:hover{
+    cursor: pointer;
+ }
+.sizes p{
+        /*display: initial;*/
+
+}
+input[type = "image"]{
+    margin-right:  70px;
+    border: 1px solid  #F47B37;
+    padding: 8px;
+    float: right;
+}
+.more-info{
+    padding-top: 7%;
+    margin-bottom: 5%;
+}
+.more-info h3{
+    text-align: center;
+
+    margin-bottom: 3%;
+}
