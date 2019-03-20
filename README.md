@@ -1,2 +1,2 @@
 # SoftShop
-My project
+Вёрстка почти готова
