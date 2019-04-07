@@ -253,8 +253,17 @@ a.curs{
     border-color: transparent transparent #ECECEC;
 }
 
+.sub-menu form{
+    width: 200px!important;
+}
+.sub-menu input[type="submit"]{
+    width:87%!important;
+}
 
-
+input {
+    margin-bottom: 14px;
+    font-family: 'HelveticaNeueCyr-Light', sans-serif;
+}
 
 
 

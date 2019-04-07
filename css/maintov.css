@@ -1,8 +1,6 @@
 #divtov{
     margin: 50px auto;
-   
 }
-
 .card{
     cursor: pointer;
     border-radius: 0;
@@ -12,7 +10,7 @@
 }
 .card:hover{
     cursor: pointer;
-	box-shadow: 0px 3px 6px 2px #273e3e24;
+	box-shadow: 0 3px 6px 2px #273e3e24;
     background-color: rgba(186, 187, 187, 0.39);
     border: 1px solid rgb(225, 226, 226);
     transition: box-shadow 0.2s
@@ -24,29 +22,34 @@
     color: #3c3c3c;
     font-weight: 400;
 }
-
-
-.to-favorites {
+.cards::after, .gridDiv::after {
+    content: "";
     display: block;
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 28px;
-    height: 28px;
-    text-align: center;
-    line-height: 30px;
-    z-index: 100;
+    clear: both;
 }
-.to-favorites:after {
-    content: '';
-    display: inline-block;
-    background: url("/img/heart.png") -5px -6px;
-    width: 22px;
-    height: 20px;
-    position: relative;
-    top: 5px;
-    left: 0;
-}
+
+
+/*.to-favorites {*/
+    /*display: block;*/
+    /*position: absolute;*/
+    /*right: 4px;*/
+    /*top: 4px;*/
+    /*width: 28px;*/
+    /*height: 28px;*/
+    /*text-align: center;*/
+    /*line-height: 30px;*/
+    /*z-index: 100;*/
+/*}*/
+/*.to-favorites:after {*/
+    /*content: '';*/
+    /*display: inline-block;*/
+    /*background: url("/img/heart.png") -5px -6px;*/
+    /*width: 22px;*/
+    /*height: 20px;*/
+    /*position: relative;*/
+    /*top: 5px;*/
+    /*left: 0;*/
+/*}*/
 
 
 .money{
@@ -120,7 +123,7 @@
     display: flex;
 }
 .buttons input[type="button"]{
-    width: 60%;
+    /*width: 60%;*/
 }
 
 .buttons .input-image{

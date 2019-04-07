@@ -1,25 +1,25 @@
 main{
     height: 80vh!important;
 }
-.sub-menu li,.sub-menu li:first-child {
+.sub-menu-acc li,.sub-menu-acc li:first-child {
     text-align:left!important;
     padding: 5px;
     margin-bottom: 3px!important;
 }
-.sub-menu li:last-child {
+.sub-menu-acc li:last-child {
     margin-bottom: 0!important;
 }
-.sub-menu li a {
+.sub-menu-acc li a {
     color: #393B3B;
     opacity: 1;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  /*Написать так везде, где есть Хельветика*/
     font-size: 15px;
 }
 
-.main-menu .sub-menu{
+.main-menu .sub-menu-acc{
     padding: 15px!important;
 }
-.main-menu .sub-menu li:hover{
+.main-menu .sub-menu-acc li:hover{
     background: #E0E0E0;
 }
 .category-wrap {
@@ -34,7 +34,6 @@ main{
     list-style: none;
     margin: 0;
     padding: 0;
-
 }
 .category-wrap li {margin: 8px 0 0 0;}
 .category-wrap a {
@@ -110,7 +109,6 @@ main{
     text-align: left;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  /*Написать так везде, где есть Хельветика*/
     font-size: 15px;
-
 }
 .div-cost{
     font-size: 18px;

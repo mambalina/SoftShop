@@ -11,7 +11,7 @@ body{
 }
 .backgroundReg{
     background: white;
-    margin: 15% auto;
+    margin: 3% auto;
     padding-top: 45px;
     text-align: center;
 }
@@ -49,6 +49,7 @@ input::placeholder{
     font-size: 18px;
     color: #FFFFFF;
     border: none;
+    cursor: pointer;
 }
 /*#button::value{*/
     /*line-height: normal;*/
@@ -78,4 +79,3 @@ input::placeholder{
     border-bottom: 2px solid rgba(57,59,59, 0.6);
     padding-bottom: 3px;
 }
-
