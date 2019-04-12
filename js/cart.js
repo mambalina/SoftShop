@@ -1,14 +1,12 @@
 var cart = {};
 
 function loadCart() {
-	//if exist
 	if (localStorage.getItem('cart')){
 		// если есть - расшифровать и записать в переменную cart
 		cart = getCartData();
 		console.log(cart);
     }
         showBasket();
-
 }
 
 function showBasket() {
@@ -28,7 +26,7 @@ function showBasket() {
             },
             dataType: "json",
             success: function (data) { // id, name, price, src
-                console.log(data);
+                // console.log(data);
                 var idCard = JSON.parse(localStorage.getItem('cart'));
 
                 var num = 0;
@@ -58,10 +56,12 @@ function showBasket() {
                                   out += `<button class="quantity-arrow-minus" data-id = "${k}" onclick="minusGoods(this);"> - </button>`;
                                out += `<input class="quantity-num" type="number" value="${idCard[k][2]}" readonly='readonly'/>`;
                                    out += `<button class="quantity-arrow-plus" data-id = "${k}" onclick="plusGoods(this);"> + </button>`;
+
                                out += `</div>`;
                                out += `</div>`;
                                out += `<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">`;
-                                   out += `<p class="cost"><span class="cost-value">${data[index].price}</span> грн.</p>`;
+                                   // out += `<p class="cost"><span class="cost-value">${data[index].price}</span> грн.</p>`; цена за 1 товар
+                               out += `<p class="cost"><span class="cost-value">${parseInt(`${data[index].price}`) * parseInt(`${idCard[k][2]}`)}</span> грн.</p>`;
                                out += `</div>`;
                                out += `</div>`;
                                allCount += parseInt(`${data[index].price}`) * parseInt(`${idCard[k][2]}`);
@@ -78,6 +78,8 @@ function showBasket() {
         });
     }
 }
+
+
 
 function minusGoods(good) {
     id = $(good).data('id');
@@ -120,7 +122,51 @@ function deleteItem(id){
     showBasket();
 }
 
+function sendEmail(){
+    var email = $('#email').val();
+    var name = $('#name').val();
+    var l_name = $('#l_name').val();
+    // var tel = $('.tel').val();
+    if (email!= '' && name!= '' && l_name!=''){
+        $.ajax({
+           method: "post",
+           url: "core.php",
+            data: {
+                "action": "sendEmail",
+               "email": email,
+                "name": name,
+                "l_name":l_name,
+                "cart": cart
+            },
+            dataType: "json",
+            success: function (data) {
+                if(data==1){
+                    alert('Заказ принят!');
+                }
+                else{
+                    alert('Повторите заказ')
+                }
+            }
+        });
+    }
+    else {
+        alert('Заполните поля!');
+    }
+
+
+}
+
 $(document).ready(function () {
 	loadCart();
-	// $('#oplata').on('click', deleteItem());
+    $('.popup, .popup_bg').hide();
+	 $('#oplata').on('click', function () {
+         $('.popup, .popup_bg').show();
+         $('.popup_bg').animate({
+             opacity:0.8
+         })
+     });
+	 $('.popup_bg').click(function () {
+         $('.popup_bg, .popup').fadeOut(500);
+     });
+
 });
