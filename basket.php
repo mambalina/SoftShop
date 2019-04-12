@@ -99,6 +99,19 @@
         </div>
     </div>
 
+    <div class="popup">
+        <h4>Оформление заказа</h4>
+        <form action="">
+            <input type="email" id="email" placeholder="email" required>
+            <input type="text" id="name" placeholder="name" required>
+            <input type="text" id="l_name" placeholder="l_name" required>
+<!--            <input type="tel" id="tel" placeholder="tel">-->
+            <input type="button" value="Продолжить" class="send-email" onclick="sendEmail()">
+        </form>
+
+    </div>
+
+<div class="popup_bg"></div>
 
 
     <!-- Footer -->
