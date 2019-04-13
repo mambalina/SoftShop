@@ -16,7 +16,7 @@
  <body>
 
  <div class="top-block" id="top">
-     <div class="container">
+     <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="index.php"><img src="img/logo.png" class = "logo" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,44 +59,21 @@
                     </ul>
                 </div>
             </nav>
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100" src="img/bg1.png" alt="First slide">
+         <div class="main_img" >
+             <h1>Делай <b style="font-weight: bold">больше</b>. Будь <b style="font-weight: bold">сильнее</b></h1>
+             <h1>Делай <b style="font-weight: bold">больше</b>. Будь <b style="font-weight: bold">сильнее</b></h1>
+             <div class="carousel-caption">
+                 <button type="button" class="btn btn-primary btn-lg main_btn fbtn" onclick="window.location='maintov.php'">Выбрать обувь</button>
+                 <button type="button" class="btn btn-outline-dark main_btn sbtn" onclick="window.location='table.php'" >Таблица размеров</button>
+             </div>
+         </div>
+
                         <div class="carousel-caption">
                             <button type="button" class="btn btn-primary btn-lg main_btn fbtn" onclick="window.location='maintov.php'">Выбрать обувь</button>
                             <button type="button" class="btn btn-outline-dark main_btn sbtn" onclick="window.location='table.php'" >Таблица размеров</button>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="img/bg2.png" alt="Second slide">
-                        <div class="carousel-caption">
-                            <button type="button" class="btn btn-primary btn-lg main_btn fbtn" onclick="window.location='maintov.php'" >Выбрать обувь</button>
-                            <button type="button" class="btn btn-outline-dark main_btn sbtn" onclick="window.location='table.php'" >Таблица размеров</button>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="img/bg3.png" alt="Third slide">
-                        <div class="carousel-caption">
-                            <button type="button" class="btn btn-primary btn-lg main_btn fbtn" onclick="window.location='maintov.php'">Выбрать обувь</button>
-                            <button type="button" class="btn btn-outline-dark main_btn sbtn" onclick="window.location='table.php'" >Таблица размеров</button>
-                        </div>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+
+
             <div class="pic">
                 <div class = "block him" onclick="window.location.href='maintov.php'" id = "his_products"><h3>Для него</h3>
 

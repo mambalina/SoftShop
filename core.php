@@ -11,12 +11,20 @@ switch ($action){
         showBasket();
         break;
     }
-    case "getNameById": {
-        getNameById();
+    case "init": {
+        init();
         break;
     }
     case "sendEmail": {
         sendEmail();
+        break;
+    }
+    case "selectOneGood": {
+        selectOneGood();
+        break;
+    }
+    case "updateDB": {
+        updateDB();
         break;
     }
 }
@@ -49,14 +57,77 @@ function showBasket(){
     }
     echo json_encode($res);
 }
-function getNameById(){
+
+function init(){
+    $link = connect();
+    $result = $link->query("select id,name from good");
+    $result->setFetchMode(PDO::FETCH_ASSOC);
+    $out = array();
+    while ($row = $result->fetch()){
+        $out[$row["id"]] = $row;
+    }
+    echo json_encode($out);
+}
+
+function selectOneGood(){
     $link = connect();
     $id = $_POST['id'];
-    $result = $link->query("SELECT name from good where id = '$id' ");
+    $result = $link->query("select * from good where id = '$id'");
     $result->setFetchMode(PDO::FETCH_ASSOC);
-    $row = $result->fetch();
-    echo json_encode($row);
+    $out = array();
+    while ($row = $result->fetch()){
+        $out[$row["id"]] = $row;
+    }
+    echo json_encode($out);
 }
+function updateDB(){
+    $link = connect();
+    $id = $_POST['id'];
+    $price = $_POST['price'];
+    $description = $_POST['description'];
+    $name = $_POST['name'];
+    $preview = $_POST['preview'];
+    //update
+    if ($id != 0){
+        $sql = "UPDATE good SET name='$name', price = '$price', description = '$description', preview = '$preview' WHERE id='$id'";
+        // Prepare statement
+        $stmt = $link->prepare($sql);
+
+        // execute the query
+        $stmt->execute();
+        echo  $stmt->rowCount() . " запись обновлена успешно!";
+    }
+    // add new
+    else{
+        try{
+            $link->beginTransaction();
+            $link->exec("INSERT INTO good (name, price, description, preview) VALUES('$name', '$price', '$description', '$preview')");
+//            $sql = "INSERT INTO good (name, price, description) VALUES (:name, :price, :description) ";
+//            $stmt = $link->prepare($sql);
+//            $stmt->execute(array(':name' => $name, ':price' => $price, ':description' => $description));
+//
+            $link->commit();
+            echo "New records created successfully";
+        }
+        catch (PDOException $e)
+        {
+            // roll back the transaction if something failed
+            $link->rollback();
+            echo "Error: " . $e->getMessage();
+        }
+
+    }
+
+}
+
+//function getNameById(){
+//    $link = connect();
+//    $id = $_POST['id'];
+//    $result = $link->query("SELECT name from good where id = '$id' ");
+//    $result->setFetchMode(PDO::FETCH_ASSOC);
+//    $row = $result->fetch();
+//    echo json_encode($row);
+//}
 
 function sendEmail(){
     $link = connect();
@@ -91,9 +162,12 @@ function sendEmail(){
     $to .= $_POST['email'];
     $spectext= '<!DOCTYPE html><html><head><title>Заказ</title></head><body>';
     $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+//    $headers .= 'From: lalgrebra@gmail.com' . "\r\n";
 
+//todo: mail
     $m = mail($to,'Заказ в SoftShop' , $spectext.$mess.'</body></html>', $headers);
     if ($m) {echo 1;} else {echo 0;}
 }
+
 

@@ -23,7 +23,7 @@
 <body>
 
 <div class="top-block" id="top">
-    <div class="container ">
+    <div class="container-fluid ">
         <nav class="navbar navbar-expand-lg navbar-light">
 
             <a class="navbar-brand" href="index.php"><img src="img/logo.png" class="logo" alt=""></a>

@@ -25,8 +25,7 @@
                 var p2 = $("input[name='password2']").val();
                 var email = $("input[name='email']").val();
                 if (p1.toString() !== p2.toString()) {
-                    $('.err').text("Пароли не совпадают");
-                    $('.err').css("display", "block");
+                    $('.err').text("Пароли не совпадают").css("display", "block");
                 }
                 else{
                 // проверка на наличие такого пользователя
@@ -40,34 +39,32 @@
                         },
                         success: function (data) {
                             if(data == 1){
-                                $('.err').text("Пользователь с таким email уже существует");
-                                $('.err').css("display", "block");
+                                $('.err').text("Пользователь с таким e-mail уже существует").css("display", "block");
                                 $i = 1;
                             }
                             else{
-                                $.ajax({
-                                    type: "POST",
-                                    url: "user.php",
-                                    data: {
-                                        "funct": "reg",
-                                        "email": email,
-                                        "username": username,
-                                        "l_name": l_name,
-                                        "password" : p1
-                                    },
-                                    success: function () {
-                                        $('.access').text("Регистрация прошла успешно!");
-                                        $('.access').css("display", "block");
-                                    }
-                                });
-
+                                if (username!='' && l_name != '' && p1!= '' && email != ''){
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "user.php",
+                                        data: {
+                                            "funct": "reg",
+                                            "email": email,
+                                            "username": username,
+                                            "l_name": l_name,
+                                            "password" : p1
+                                        },
+                                        success: function () {
+                                            $('.access').text("Регистрация прошла успешно!").css("display", "block");
+                                        }
+                                    });
+                                }
+                                else {
+                                    $('.err').text("Заполните все поля!").css("display", "block");
+                                }
                             }
                         }
                     });
-                    // регистрация
-                //     if ($i == 0){
-                //
-                // }
             }
                 return false;
         })
@@ -78,7 +75,7 @@
 <body>
 
 <div class="top-block" id="top">
-    <div class="container">
+    <div class="container-fluid">
 <!--        меню-->
         <nav class="navbar navbar-expand-lg navbar-light">
 

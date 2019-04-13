@@ -23,7 +23,7 @@
 <body>
 
 <div class="top-block" id="top">
-    <div class="container ">
+    <div class="container-fluid ">
         <nav class="navbar navbar-expand-lg navbar-light">
 
             <a class="navbar-brand" href="index.php"><img src="img/logo.png" class = "logo"></a>
@@ -82,7 +82,7 @@
     </div>
 
 
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="inform" >
             <div class="inside-div" id = "divtov" style="display: block">
@@ -147,11 +147,11 @@
                 </div>
                 <div class="how-to-do">
                     <h2>Подбираем свой размер</h2>
-                    <div class="todo">
+                    <div class="todo" style="margin-left: 10%; ">
                         <p>Вам понадобится провести измерения с помощью сантиметровой ленты. Для определения подходящего размера необходимо соотнести полученные измерения с размерами в таблице.</p>
                         <p>Поставьте ногу на чистый лист бумаги. Отметьте крайние границы ступни и измерьте расстояние между самыми удаленными точками стопы.</p>
                     </div>
-                    <img src="img/legs.png" alt="">
+                    <img src="img/legs.png" alt="" style="margin-right: 10%">
                 </div>
             </div>
         </div>
