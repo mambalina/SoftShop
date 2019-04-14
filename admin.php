@@ -34,40 +34,69 @@
 </div>
 
 
-    <div class="container" style="height: 76vh">
+    <div class="container-fluid" >  <!--style="height: 80vh"-->
         <div class="row">
 <!--            инфа о товаре-->
-            <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mt-3">
+            <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
                 <div class="goods"></div>
                 <div class="pr" style="height: 50px"></div>
                 <div class="good">
                     <h2>Товар</h2>
                     <p>Название: <input type="text" id ="gname"></p>
                     <p>Цена (грн.): <input type="text" id ="gprice"> </p>
+                    <p>Пол: <select name="" id="">
+                            <option value="" id = "wom">Женский</option>
+                            <option value="" id = "man">Мужской</option>
+                        </select></p>
                     <p>Фото превью: <input type="text" id ="preview" style="width: 25%"></p>
                     <p>Описание: <textarea name="" id="description" cols="30" rows="2"></textarea></p>
-                    <input type="hidden" id = "good_id" value="0">
-                    <button class="add-to-db" >REFRESH</button>
                 </div>
             </div>
-<!--            инфа о поставщике, наличии на складе, фотках, категории, материалах-->
-            <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mt-3">
-                <div class="goods"></div>
+<!--инфа о поставщике, наличии на складе-->
+            <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
+
                 <div class="pr" style="height: 50px"></div>
+                <div class="provider">
+                    <h4>Поставщик</h4>
+                    <div class="provider-name"></div>
+
+                </div>
                 <div class="good">
-                    <h2>Товар</h2>
-                    <p>Название: <input type="text" id ="gname"></p>
-                    <p>Цена (грн.): <input type="text" id ="gprice"> </p>
-                    <p>Фото превью: <input type="text" id ="preview" style="width: 25%"></p>
-                    <p>Описание: <textarea name="" id="description" cols="30" rows="2"></textarea></p>
-                    <input type="hidden" id = "good_id" value="0">
-                    <button class="add-to-db" >REFRESH</button>
+                    <h4>Размеры</h4>
+                    <div class="sizes"></div>
                 </div>
             </div>
+            <!--инфа о  фотках, категории, материалах-->
+            <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
+                <div class="pr" style="height: 50px"></div>
+                <div class="information">
+                    <h4>Фото</h4>
+                    <div class="photos">
+                        <p>Фото - <input type="text" class="ph" style="width: 80%"></p>
+                        <p>Фото - <input type="text" class="ph" style="width: 80%"></p>
+                        <p>Фото - <input type="text"  class="ph" style="width: 80%"></p>
+                        <p>Фото - <input type="text" class="ph" style="width: 80%"></p>
+                    </div>
+                </div>
+                <div class="information">
+                    <h4>Категории</h4>
+                    <div class="categories">
+                        <input type="text" class="categ">
+                    </div>
+                </div>
+                <div class="information">
+                    <h4>Материалы</h4>
+                    <div class="materials">
+                        <input type="text" class = "mater">
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-
-
+        <div class="button" style="text-align: center">
+            <input type="hidden" id = "good_id" value="0">
+            <button class="add-to-db"  style="margin: 50px auto 100px auto">Обновить данные</button>
+        </div>
 
     </div>
 
