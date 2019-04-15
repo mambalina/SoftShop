@@ -221,7 +221,7 @@ function saveToDb(){
     //берём материалы
     var material = [];
     $('.materials').find(':input').each(function (i, input) {
-        material.push($(input).val())
+        material[$(this).attr('id')].push($(input).val());
     });
     console.log(material);
 
