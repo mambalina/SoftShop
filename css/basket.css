@@ -101,20 +101,30 @@ input[type="number"] {
 }
 .quantity-arrow-minus,
 .quantity-arrow-plus {
+    background: white;
+    border: 1px #b2b2b2 solid;
     cursor: pointer;
     font-size: 18px;
     padding: 5px 12px;
     width: 40px;
     box-sizing: border-box;
-    border-radius: 4px;
     outline: none;
+    margin: 2%;
+
 }
+.quantity-arrow-minus:hover,
+.quantity-arrow-plus:hover {
+    background: rgba(108, 117, 125, 0.22);
+    color: #1b1e21;
+}
+
 .quantity-num {
     font-size: 18px;
+    border: 1px solid;
+    border-color: rgba(0, 0, 0, 0.07);
     padding: 5px 10px;
-    border-radius: 4px;
     outline: none;
-    width: 70px;
+    width: 50px;
 }
 .popup{
     width: 25%;
