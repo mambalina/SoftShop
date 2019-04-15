@@ -192,12 +192,19 @@ function updateDB(){
         $stmt = $link->prepare($sql);
         $stmt->execute();
 //        todo: решить, что тут с этой хренью делать
-        $sql = "UPDATE material, good_material SET name=:material_name WHERE material_id = id and good_id='$id'";
-        $stmt = $link->prepare($sql);
-        foreach ($material as $value){
-            $stmt->bindParam(":material_name", $value);
-            $stmt->execute();
+        $arr = array();
+
+        foreach ( $material as $value){
+           $arr[] = $value;
+           echo $value;
         }
+
+//        $sql = "UPDATE material, good_material SET  name = '.implode(', ',$arr).' WHERE good_material.material_id = material.id and good_id='$id'";
+//        $stmt = $link->prepare($sql);
+//        foreach ($material as $value){
+//            $stmt->bindParam(":material_name", $value);
+//            $stmt->execute();
+//        }
 
         echo  $stmt->rowCount() . " запись обновлена успешно!";
     }
