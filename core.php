@@ -47,8 +47,21 @@ switch ($action){
         selectCategories();
         break;
     }
+    case "selectAllCategories": {
+        selectAllCategories();
+        break;
+    }
+
     case "selectMaterials": {
         selectMaterials();
+        break;
+    }
+    case "selectAllMaterials": {
+        selectAllMaterials();
+        break;
+    }
+    case "selectAllSizes": {
+        selectAllSizes();
         break;
     }
 
@@ -110,11 +123,11 @@ function selectOneGood(){
 function selectSizes(){
     $link = connect();
     $id = $_POST['id'];
-    $result = $link->query("SELECT  size_name, amount from good, avalibility, shoesize where avalibility.good_id = good.id and size_id=shoesize.id and amount>0 and good.id='$id' ORDER BY shoesize.id");
+    $result = $link->query("SELECT  size_name, size_id, amount from good, avalibility, shoesize where avalibility.good_id = good.id and size_id=shoesize.id and amount>0 and good.id='$id' ORDER BY shoesize.id");
     $result->setFetchMode(PDO::FETCH_ASSOC);
     $out = array();
     while ($row = $result->fetch()){
-        $out[$row['size_name']] = $row;
+        $out[$row['size_id']] = $row;
     }
     echo json_encode($out);
 }
@@ -161,6 +174,16 @@ function selectCategories(){
     }
     echo json_encode($out);
 }
+function selectAllCategories(){
+    $link = connect();
+    $result = $link->query("SELECT id,name from category ");
+    $result->setFetchMode(PDO::FETCH_ASSOC);
+    $out = array();
+    while ($row = $result->fetch()){
+        $out[$row['id']] = $row;
+    }
+    echo json_encode($out);
+}
 
 function selectMaterials(){
     $link = connect();
@@ -173,6 +196,27 @@ function selectMaterials(){
     }
     echo json_encode($out);
 }
+function selectAllMaterials(){
+    $link = connect();
+    $result = $link->query("SELECT id,name from material");
+    $result->setFetchMode(PDO::FETCH_ASSOC);
+    $out = array();
+    while ($row = $result->fetch()){
+        $out[$row['id']] = $row;
+    }
+    echo json_encode($out);
+}
+function selectAllSizes(){
+    $link = connect();
+    $result = $link->query("SELECT id,size_name from shoesize");
+    $result->setFetchMode(PDO::FETCH_ASSOC);
+    $out = array();
+    while ($row = $result->fetch()){
+        $out[$row['id']] = $row;
+    }
+    echo json_encode($out);
+}
+
 
 function updateDB(){
     $link = connect();
@@ -182,41 +226,90 @@ function updateDB(){
     $name = $_POST['name'];
     $preview = $_POST['preview'];
     $gender = $_POST['gender'];
-    $sizes = $_POST['sizes'];
+    $provider = $_POST['provider'];
+    $sizes = $_POST['size'];
     $photo = $_POST['photo'];
-    $category = $_POST['category'];
-    $material = $_POST['material'];
+
     //update
     if ($id != 0){
-        $sql = "UPDATE good SET name='$name', price = '$price', description = '$description', preview = '$preview', gender = '$gender' WHERE id='$id'";
-        $stmt = $link->prepare($sql);
-        $stmt->execute();
-//        todo: решить, что тут с этой хренью делать
-        $arr = array();
+//        $sql = "UPDATE good SET name='$name', price = '$price', description = '$description', preview = '$preview', gender = '$gender' WHERE id='$id'";
+//        $stmt = $link->prepare($sql);
+//        $stmt->execute();
+//
+//
 
-        foreach ( $material as $value){
-           $arr[] = $value;
-           echo $value;
+//        todo: доделать фото, категории, материалы
+        foreach ($sizes as $key => $value ){
+//            echo "{$key} => {$value} ";
+            foreach ($value as $size=>$amt){
+                if ($size == 0){
+                    $size_amount = $amt;
+                }
+                else{
+
+                    $sql = "UPDATE avalibility SET amount = '$size_amount' WHERE good_id='$id' and size_id='$amt'";
+                    $stmt = $link->prepare($sql);
+                    $stmt->execute();
+                }
+
+
+//                echo "{$size}=>{$amt}";
+//                echo ' ';
+            }
         }
 
-//        $sql = "UPDATE material, good_material SET  name = '.implode(', ',$arr).' WHERE good_material.material_id = material.id and good_id='$id'";
+
+
+//        echo $material;
+
+//        $sql = "UPDATE good_material SET  name = '.implode(', ',name = '.implode(', ',$arr).' WHERE good_material.material_id = material.id and good_id='$id'";
 //        $stmt = $link->prepare($sql);
 //        foreach ($material as $value){
 //            $stmt->bindParam(":material_name", $value);
 //            $stmt->execute();
 //        }
 
-        echo  $stmt->rowCount() . " запись обновлена успешно!";
+//        echo  $stmt->rowCount() . " запись обновлена!";
     }
     // add new
     else{
         try{
             $link->beginTransaction();
-            $link->exec("INSERT INTO good (name, price, description, preview, gender) VALUES('$name', '$price', '$description', '$preview', '$gender')");
-//            $sql = "INSERT INTO good (name, price, description) VALUES (:name, :price, :description) ";
-//            $stmt = $link->prepare($sql);
-//            $stmt->execute(array(':name' => $name, ':price' => $price, ':description' => $description));
+            $sql = "INSERT INTO good (name, price, description, preview, gender, provider_id) VALUES (:name, :price, :description, :preview, :gender, :provider_id)";
+            $stmt = $link->prepare($sql);
+            $stmt->execute(array(':name' => $name, ':price' => $price, ':description' => $description, ':preview' => $preview, ':gender' => $gender, ':provider_id' => $provider));
+            $id = $link->lastInsertId();
+            $category = $_POST['category'];
+            $material = $_POST['material'];
+            $size = $_POST['size'];
+            $amt = $_POST['amt'];
 //
+            $sql = "INSERT INTO good_material (good_id, material_id) VALUES (:good_id, :material_id)";
+            $stmt = $link->prepare($sql);
+            $stmt->execute(array(':good_id' => $id, ':material_id' => $material));
+
+            $sql = "INSERT INTO good_category (good_id, category_id) VALUES (:good_id, :category_id)";
+            $stmt = $link->prepare($sql);
+            $stmt->execute(array(':good_id' => $id, ':category_id' => $category));
+
+            $sql = "INSERT INTO avalibility (good_id, size_id, amount) VALUES (:good_id, :size_id, :amt)";
+            $stmt = $link->prepare($sql);
+            $stmt->execute(array(':good_id' => $id, ':size_id' => $size, ':amt' => $amt));
+
+
+            $sql = "INSERT INTO photo (good_id, src) VALUES (:good_id, :src)";
+            $stmt = $link->prepare($sql);
+            foreach ($photo as $src){
+                $stmt->execute(array(':good_id' => $id, ':src' => $src));
+            }
+//            $src = implode(",", $arr);
+
+//                '.implode(', ',$arr).'
+
+
+
+
+
             $link->commit();
             echo "New records created successfully";
         }
