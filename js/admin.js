@@ -18,9 +18,25 @@ function init(){
            $('.goods').html(out);
            $('.goods select').on('change', selectGoods);
 
-           var out = '';
-           out += `<p>Размер: <input type="text" id="" value="" style="width: 10%" class="one-size"> Количество: <input type="text" id="" value="" style="width: 10%" class = "amt"></p>`;
-           $('.sizes').html(out);
+           $.ajax({
+               type: "post",
+               url: "core.php",
+               data: {
+                   "action": "selectAllSizes"
+               },
+               success: function (data) {
+                   data = JSON.parse(data);
+                   out = '<p>Размер: ';
+                   // out += `<p>Размер: <input type="text" id="" value="" style="width: 10%" class="one-size"> Количество: <input type="text" id="" value="" style="width: 10%" class = "amt"></p>`;
+                   out += `<select>`;
+                   for (var id in data){
+                       out += `<option data-id="${id}"style="width: 10%" class="one-size">${data[id].size_name}</option>`;
+                   }
+                   out += '</select> Количество: <input type="text" data-id="amt" value="" style="width: 10%" class = "amt" </p> ';
+                   $('.sizes').html(out);
+               }
+           });
+
 
            //вывод всех поставщиков
            $.ajax({
@@ -37,6 +53,39 @@ function init(){
                    }
                    out += '</select>';
                     $('.provider-name').html(out);
+               }
+           });
+
+           $.ajax({
+               type: "post",
+               url: "core.php",
+               data: {
+                   "action": "selectAllCategories"
+               },
+               success: function (data) {
+                   data = JSON.parse(data);
+                   var out = '<select>';
+                   for (var id in data){
+                       out += `<option data-id = "${id}">${data[id].name}</option>`
+                   }
+                   out += '</select>';
+                   $('.categories').html(out);
+               }
+           });
+            $.ajax({
+               type: "post",
+               url: "core.php",
+               data: {
+                   "action": "selectAllMaterials"
+               },
+               success: function (data) {
+                   data = JSON.parse(data);
+                   var out = '<select>';
+                   for (var id in data){
+                       out += `<option data-id = "${id}">${data[id].name}</option>`
+                   }
+                   out += '</select>';
+                   $('.materials').html(out);
                }
            });
 
@@ -81,6 +130,7 @@ function selectGoods(){
                 else{
                     $('.good select option:selected').text('Женский');
                 }
+
                 //вывод информации о размерах
                 $.ajax({
                     type: "post",
@@ -92,9 +142,16 @@ function selectGoods(){
                     success : function (data) {
                         data = JSON.parse(data);
                         console.log(data);
+
+                        // var out = '';
                         var out = '';
+                        // for (var id in data){
+                        //     out += `<p>Размер: <select><option data-id="${id}"style="width: 10%" class="one-size">${data[id].size_name}</option></select> Количество: <input type="text" data-id="amt" value="${data[id].amount}" style="width: 10%" class = "amt" </p>`;
+                        // }
+                        // // out +=  ';
+                        // $('.sizes').html(out);
                         for (var id in data){
-                            out += `<p>Размер: <input type="text" id="${id}" value="${data[id].size_name}" style="width: 10%"> Количество: <input type="text" id="${id}" value="${data[id].amount}" style="width: 10%"></p>`;
+                            out += `<p>Размер: <input type="text" data-id="${id}" value="${data[id].size_name}" style="width: 10%" readonly="readonly"> Количество: <input type="text" id="${id}" value="${data[id].amount}" style="width: 10%" class="amt"></p>`;
                         }
                         $('.sizes').html(out);
                     }
@@ -145,8 +202,15 @@ function selectGoods(){
                         // console.log(data);
                         var out = '';
                         for (var id in data){
-                            out += `<input type="text" id = "${id}" class='categ' value="${data[id].name}" >`;
+                            out += `<input data-id = "${id}"  class='categ' value="${data[id].name}" readonly="readonly">`;
                         }
+                            // for (var id in data){
+                        //     out += '<select>';
+                        //     out += `<option data-id = "${id}"  class='categ'>${data[id].name}</option>`
+                        //     out += '</select>';
+                        // }
+
+
                         $('.categories').html(out);
                     }
                 });
@@ -162,36 +226,34 @@ function selectGoods(){
                     success : function (data) {
                         data = JSON.parse(data);
                         console.log(data);
-                        var out = '';
-                        for (var id in data){
-                            out += `<input type="text" id = "${id}" class = 'mater' value="${data[id].name}" >`;
-                        }
 
+                        var out = '';
+                        // for (var id in data){
+                        //     out += '<select>';
+                        //     out += `<option data-id = "${id}"  class='mater'>${data[id].name}</option>`
+                        //     out += '</select>';
+                        // }
+                        for (var id in data){
+                            out += `<input data-id = "${id}"  class='mater' value="${data[id].name}" readonly="readonly">`;
+                        }
                         $('.materials').html(out);
                     }
                 });
-
-
             }
         }
-
     });
-
-
-
     // $('.one-size').find('input').each(function () {
     //     sizes['name'] = $(this).val()
     // });
     // for (var i = 0; i<sz.length; i++){
     //     sizes[i] = sz.val();
     // }
-
-
 }
 
 function saveToDb(){
     var id = $('#good_id').val();
     var gender = $('.good select option:selected').attr('id');
+    var provider = $('.provider-name select option:selected').attr('data-id');
     var gen;
     if (gender == "wom"){
         gen = 'ж';
@@ -199,61 +261,120 @@ function saveToDb(){
     else {
         gen = 'м';
     }
-    //берём размеры и их количество
-    var sizes = [];
+    var size = [];
+    var key = 0;
     $('.sizes').find(':input').each(function (i, input) {
-        sizes[$(this).attr('id')] = $(input).val();
+        if ($(input).attr('id') != undefined){
+            size[key] = [$(input).val(),$(input).attr('id') ];
+            key++;
+        }
+
     });
-    console.log(sizes);
+    console.log(size);
+
     //берём фотки
     var photo = [];
     $('.photos').find(':input').each(function (i, input) {
         photo.push($(input).val())
     });
     console.log(photo);
-    //берём категории
-    var category = [];
-    $('.categories').find(':input').each(function (i, input) {
-        category.push($(input).val())
-        // category[$(this).attr('id')] = $(input).val();
-    });
-    console.log(category);
-    //берём материалы
-    var material = [];
-    $('.materials').find(':input').each(function (i, input) {
-        material[$(this).attr('id')].push($(input).val());
-    });
-    console.log(material);
+
+
+    if (id != 0){
+
+        //берём категории
+        var category = [];
+        $('.categories').find(':input').each(function (i, input) {
+            category.push($(input).attr('data-id'))
+            // category[$(this).attr('id')] = $(input).val();
+        });
+        console.log(category);
+
+        //берём материалы
+        var material = [];
+        $('.materials').find(':input').each(function (i, input) {
+            material.push($(input).attr('data-id'));
+
+        });
+        // $('.materials:input').each(function () {
+        //     material[i]['id'] = $(this).val();
+        //     alert($(this).val());
+        //     i++;
+        // });
+        //берём размеры и их количество
+
+        console.log(material);
+
+        // $.ajax({
+        //     type: "post",
+        //     url: "core.php",
+        //     data: {
+        //         "action": "updateDB",
+        //         "id" : id,
+        //         "name" : $('#gname').val(),
+        //         "price" : $('#gprice').val(),
+        //         "description" : $('#description').val(),
+        //         "gender" : gen,
+        //         "preview" :  $('#preview').val(),
+        //         "sizes" : sizes,
+        //         "photo" : photo,
+        //         "category" : category,
+        //         "material" : material
+        //     },
+        //     success: function (data) {
+        //         alert(data);
+        //         $('#gname').val('');
+        //         $('#gprice').val('');
+        //         $('#preview').val('');
+        //         $('#description').val('');
+        //         $('#good_id').val('0');
+        //         $('.materials, .categories, .photos').find(':input').each(function (i, input) {
+        //             ($(input).val(''));
+        //         });
+        //         init();
+        //     }
+        // });
+    }
+    else{
+        var category = $('.categories select option:selected').attr('data-id');
+        var material= $('.materials select option:selected').attr('data-id');
+        var size = $('.sizes select option:selected').attr('data-id');
+        var amt = $('.amt').val();
+    }
 
     $.ajax({
-            type: "post",
-            url: "core.php",
-            data: {
-                "action": "updateDB",
-                "id" : id,
-                "name" : $('#gname').val(),
-                "price" : $('#gprice').val(),
-                "description" : $('#description').val(),
-                "gender" : gen,
-                "preview" :  $('#preview').val(),
-                "sizes" : sizes,
-                "photo" : photo,
-                "category" : category,
-                "material" : material
-            },
-            success: function (data) {
-                alert(data);
-                $('#gname').val('');
-                $('#gprice').val('');
-                $('#preview').val('');
-                $('#description').val('');
-                $('#good_id').val('0');
-                $('.materials, .categories, .photos').find(':input').each(function (i, input) {
-                    ($(input).val(''));
-                });
-                init();
-            }
-        });
+        type: "post",
+        url: "core.php",
+        data: {
+            "action": "updateDB",
+            "id" : id,
+            "name" : $('#gname').val(),
+            "price" : $('#gprice').val(),
+            "description" : $('#description').val(),
+            "gender" : gen,
+            "preview" :  $('#preview').val(),
+            "size" : size,
+            "amt" : amt,
+            "photo" : photo,
+            "category" : category,
+            "material" : material,
+            "provider" : provider
+        },
+        success: function (data) {
+            // data = JSON.parse(data);
+            alert(data);
+            console.log(data);
+            $('#gname').val('');
+            $('#gprice').val('');
+            $('#preview').val('');
+            $('#description').val('');
+            $('#good_id').val('0');
+            // $('.materials, .categories, .photos').find(':input').each(function (i, input) {
+            //     ($(input).val(''));
+            // });
+            init();
+        }
+    });
 
 
 
