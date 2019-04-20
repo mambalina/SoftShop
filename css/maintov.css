@@ -1,134 +1,121 @@
-#divtov{
-    margin: 50px auto;
-}
-.card{
+@charset "UTF-8";
+#divtov {
+  margin: 50px auto; }
+
+.card {
+  cursor: pointer;
+  border-radius: 0;
+  background-color: rgba(186, 187, 187, 0.39);
+  border: 1px solid #e1e2e2;
+  width: 18rem; }
+  .card:hover {
     cursor: pointer;
-    border-radius: 0;
+    box-shadow: 0 3px 6px 2px #273e3e24;
     background-color: rgba(186, 187, 187, 0.39);
-    border: 1px solid rgb(225, 226, 226);
-    width: 18rem;
-}
-.card:hover{
-    cursor: pointer;
-	box-shadow: 0 3px 6px 2px #273e3e24;
-    background-color: rgba(186, 187, 187, 0.39);
-    border: 1px solid rgb(225, 226, 226);
-    transition: box-shadow 0.2s
-}
-.card-text{
-    text-align: left;
-    font-family: HelveticaNeueCyr!important;
-    font-size: 17px;
-    color: #3c3c3c;
-    font-weight: 400;
-}
+    border: 1px solid #e1e2e2;
+    transition: box-shadow 0.2s; }
+
+.card-text {
+  text-align: left;
+  font-family: HelveticaNeueCyr !important;
+  font-size: 17px;
+  color: #3c3c3c;
+  font-weight: 400; }
+
 .cards::after, .gridDiv::after {
-    content: "";
-    display: block;
-    clear: both;
-}
+  content: "";
+  display: block;
+  clear: both; }
+
 .sbtn {
-    color: #121414!important;
-}
-.sbtn:hover {
-    color: white!important;
-}
+  color: #121414 !important; }
+  .sbtn:hover {
+    color: white !important; }
 
-.money{
-    /*font-weight: 450;*/
-}
+.money {
+  /*font-weight: 450;*/ }
+
 .card-img-top {
-    width: 100%;
-    border-top-left-radius: 0; 
-    border-top-right-radius: 0; 
-}
+  width: 100%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; }
+
 .btn-secondary {
-    color: rgb(57, 59, 59);
-    background-color: #fff;
-    border-color: #C4C4C4;
-}
-.btn-group>.btn:first-child {
-    margin-left: 0;
-    width: 250px;
-    height: 45px;
-    text-align: left;
-}
+  color: #393b3b;
+  background-color: #fff;
+  border-color: #C4C4C4; }
+
+.btn-group > .btn:first-child {
+  margin-left: 0;
+  width: 250px;
+  height: 45px;
+  text-align: left; }
+
 .dropdown-item.active, .dropdown-item:active {
-    color: #fff;
-    text-decoration: none;
-    background-color: #F44336;
-}
-.bg{
-	background: none;
-}
-.container{
-	padding-left: 0;
-	margin-right: 10%;
-}
-.center{
-	top: -400px;
-	position: relative;
-}
-.all-cards{
-	margin-top: 75px;
-}
+  color: #fff;
+  text-decoration: none;
+  background-color: #F44336; }
 
-.cards{
-	display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-.another-cards{
-	margin-top: -20%;
-}
-.pages{
-	padding-top: 100px;
-	padding-bottom: 25px
-}
-.pages a {
-	color: #3c3c3c;
-}
-.pages a:hover {
-	opacity: 1;
-	color: #3c3c3c;
-	padding-bottom: 5px;
-	border-bottom: 3px solid rgba(60, 60, 60, 0.76);
-}
+.bg {
+  background: none; }
 
-.buttons{
-    display: none;
-    /*transition: display 4s ease-in-out 4s;*/
-    /*display: flex;*/
-    transition: all 5.5s ease;
-}
-.card:hover  .buttons{
-    display: flex;
-    transition: all 5.5s ease;
-}
-.card-body:hover.buttons{
-    display: flex;
-    transition: all 5.5s ease;
-}
+.container {
+  padding-left: 0;
+  margin-right: 10%; }
 
-.buttons input[type="button"]{
-    /*width: 60%;*/
-}
+.center {
+  top: -400px;
+  position: relative; }
 
-.buttons .input-image{
-    margin-left: 20px;
-    /*width: 20%;*/
-    cursor: pointer;
-    border: 1px solid #928D8D;
-    height: 35px;
-    padding-top: 7px;
-    border-radius: .25rem;
+.all-cards {
+  margin-top: 75px; }
 
-}
-.buttons .input-image:hover{
-    /*background: #393B3B; при наведении меняется кнопка добавить в избранное*/
-}
-.buttons input[type="image"]{
-    width: 60%;
-    margin-bottom: 0!important;
-}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px; }
+
+.another-cards {
+  margin-top: -20%; }
+
+.pages {
+  padding-top: 100px;
+  padding-bottom: 25px; }
+  .pages a {
+    color: #3c3c3c; }
+    .pages a:hover {
+      opacity: 1;
+      color: #3c3c3c;
+      padding-bottom: 5px;
+      border-bottom: 3px solid rgba(60, 60, 60, 0.76); }
+
+.buttons {
+  display: none;
+  /*transition: display 4s ease-in-out 4s;*/
+  /*display: flex;*/
+  transition: all 5.5s ease; }
+
+.card:hover .buttons, .card-body:hover.buttons {
+  display: flex;
+  transition: all 5.5s ease; }
+
+.buttons input[type="button"] {
+  /*width: 60%;*/ }
+
+.buttons .input-image {
+  margin-left: 20px;
+  /*width: 20%;*/
+  cursor: pointer;
+  border: 1px solid #928D8D;
+  height: 35px;
+  padding-top: 7px;
+  border-radius: .25rem; }
+  .buttons .input-image:hover {
+    /*background: #393B3B; при наведении меняется кнопка добавить в избранное*/ }
+
+.buttons input[type="image"] {
+  width: 60%;
+  margin-bottom: 0 !important; }
+
+/*# sourceMappingURL=maintov.css.map */

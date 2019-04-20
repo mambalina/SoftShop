@@ -1,0 +1,154 @@
+body{
+	background: rgba(245, 244, 244, 0.5)!important;
+}
+#divtov{
+	text-align: center;
+}
+.all-cards .row{
+    border-bottom: 1px solid #B6B6B6
+}
+.all-cards .row:last-child {
+    border-bottom: none;
+}
+.num, .back{
+	display: inline-flex;
+	font-size: 20px;
+	font-family: Raleway Light, sans-serif;
+}
+.num{
+	float:  left;
+}
+.back{
+	float:  right;
+	color: #F47B37;
+	opacity: 1;
+}
+.back:hover{
+	color: #e45633
+}
+.links{
+	margin-top: 5%;
+	margin-left: 4%;
+}
+.all-cards{
+	background: white;
+	margin-top: 9%;
+	padding-top: 10px;
+}
+.descr{
+    text-align: left!important;
+}
+.descr a{
+	color: #D92E2E!important;
+	opacity: 1;
+    font-size: initial
+}
+.descr a:hover{
+	color: red;
+}
+p.cost , span.cost{
+    font-family: 'HelveticaNeueCyr', sans-serif;
+    font-size: 24px;
+    color: #393B3B;
+}
+.cost{
+    margin-top: 50%;
+    margin-bottom: 50%;
+}
+img.row{
+    width: 218px;
+    height: 200px;
+ }
+h2{
+    margin: 5%
+}
+ h4{
+     line-height: 1.5;
+     padding-bottom: 10px;
+ }
+ #oplata{
+     margin: 10% 0 10% 4%;
+     cursor: pointer;
+     width: 249px;
+     padding: 15px 20px;
+     border: none;
+     font-size: 16px;
+     line-height: normal;
+     background: #F47B37;
+     color: white;
+ }
+ .allCost{
+     margin: 11% 25% 10% 4%;
+     font-size: 17px;
+ }
+ .allCost span{
+     font-weight: bolder;
+ }
+
+
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+.quantity-block {
+    margin: auto;
+    font-size: 18px;
+}
+.quantity-arrow-minus,
+.quantity-arrow-plus {
+    background: white;
+    border: 1px #b2b2b2 solid;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 12px;
+    width: 40px;
+    box-sizing: border-box;
+    outline: none;
+    margin: 2%;
+
+}
+.quantity-arrow-minus:hover,
+.quantity-arrow-plus:hover {
+    background: rgba(108, 117, 125, 0.22);
+    color: #1b1e21;
+}
+
+.quantity-num {
+    font-size: 18px;
+    border: 1px solid;
+    border-color: rgba(0, 0, 0, 0.07);
+    padding: 5px 10px;
+    outline: none;
+    width: 50px;
+}
+.popup{
+    width: 25%;
+    height: 40%;
+    z-index: 100;
+    position: absolute;
+    padding: 3%;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    background: #f7f7f7;
+}
+.popup_bg{
+    background: #1b1e21;
+    position: absolute;
+    opacity: 0;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 95;
+    width: 100%;
+    height: 100%;
+}

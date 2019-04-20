@@ -1,129 +1,118 @@
-main{
-    height: 80vh!important;
-}
-.sub-menu-acc li,.sub-menu-acc li:first-child {
-    text-align:left!important;
+@charset "UTF-8";
+main {
+  height: 80vh !important; }
+
+.sub-menu-acc li {
+  text-align: left !important;
+  padding: 5px;
+  margin-bottom: 3px !important; }
+  .sub-menu-acc li:first-child {
+    text-align: left !important;
     padding: 5px;
-    margin-bottom: 3px!important;
-}
-.sub-menu-acc li:last-child {
-    margin-bottom: 0!important;
-}
-.sub-menu-acc li a {
+    margin-bottom: 3px !important; }
+  .sub-menu-acc li:last-child {
+    margin-bottom: 0 !important; }
+  .sub-menu-acc li a {
     color: #393B3B;
     opacity: 1;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  /*Написать так везде, где есть Хельветика*/
-    font-size: 15px;
-}
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px; }
 
-.main-menu .sub-menu-acc{
-    padding: 15px!important;
-}
-.main-menu .sub-menu-acc li:hover{
-    background: #E0E0E0;
-}
+.main-menu .sub-menu-acc {
+  padding: 15px !important; }
+  .main-menu .sub-menu-acc li:hover {
+    background: #E0E0E0; }
+
 .category-wrap {
-    padding: 5px 15px 10px 15px;
-    background: white;
-    width: 200px;
-    box-shadow: 2px 2px 8px rgba(0,0,0,.1);
-   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  /*Написать так везде, где есть Хельветика*/
-    text-align: left;
-}
-.category-wrap ul {
+  padding: 5px 15px 10px 15px;
+  background: white;
+  width: 200px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: left; }
+  .category-wrap ul {
     list-style: none;
     margin: 0;
-    padding: 0;
-}
-.category-wrap li {margin: 8px 0 0 0;}
-.category-wrap a {
+    padding: 0; }
+  .category-wrap li {
+    margin: 8px 0 0 0; }
+  .category-wrap a {
     text-decoration: none;
     display: block;
     font-size: 15px;
-    color: rgba(0,0,0,.6);
+    color: rgba(0, 0, 0, 0.6);
     padding: 8px;
     position: relative;
-    transition: .3s linear;
-}
+    transition: .3s linear; }
+    .category-wrap a:hover {
+      background: #E0E0E0; }
 
-.category-wrap a:hover {
-    /*width: 100%;*/
-    background: #E0E0E0;
+.div-info {
+  margin-left: 10%;
+  width: 60%; }
 
-}
-.div-info{
-    margin-left: 10%;
-    width: 60%;
-}
-.info{
-    padding-top: 15px;
-    border-bottom: 1px solid #DADADA;
+.info {
+  padding-top: 15px;
+  border-bottom: 1px solid #DADADA; }
 
-    /*margin-left: 20px;*/
-}
-.div-info .info li{
-    display: inline-block;
-}
-.div-info .info li::after{
-    content:"";
+.div-info .info li {
+  display: inline-block; }
+  .div-info .info li::after {
+    content: "";
     width: 85%;
     height: 2px;
     display: block;
     background: #1b1e21;
-    margin-top: 5px;
-}
+    margin-top: 5px; }
 
 .menu-switch a {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  /*Написать так везде, где есть Хельветика*/
-    font-size: 18px!important;
-    color: #393B3B!important;
-    /*color: #868282; для не активного меню*/
-}
-.div-goods{
-    padding-top: 20px ;
-}
-.div-one-good{
-    background: #f7f7f7;
-    margin-bottom: 20px;
-    padding-top: 20px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-}
-.div-img{
-    height: 80px;
-    width: 80px;
-    /*border: 1px solid #393B3B;*/
-    overflow:hidden
-}
-.div-img img{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*Написать так везде, где есть Хельветика*/
+  font-size: 18px !important;
+  color: #393B3B !important; }
+
+.div-goods {
+  padding-top: 20px; }
+
+.div-one-good {
+  background: #f7f7f7;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  height: 100px;
+  display: flex;
+  align-items: center; }
+
+.div-img {
+  height: 80px;
+  width: 80px;
+  overflow: hidden; }
+  .div-img img {
     display: block;
     height: auto;
-    width: 100%;
-}
-.div-description{
-    width: 75%;
-    margin-left: auto;
-}
-.div-description{
-    text-align: left;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  /*Написать так везде, где есть Хельветика*/
-    font-size: 15px;
-}
-.div-cost{
-    font-size: 18px;
-}
-.div-description h6{
-    font-weight: bold;
-}
-.div-description p{
-    margin-bottom: 0!important;
-    font-size: 15px;
-}
-.div-cost{
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  /*Написать так везде, где есть Хельветика*/
-    font-size: 18px;
-}
-.inside-div{
-    display: flex;
-}
+    width: 100%; }
+
+.div-description {
+  width: 75%;
+  margin-left: auto;
+  text-align: left;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px; }
+
+.div-cost {
+  font-size: 18px; }
+
+.div-description h6 {
+  font-weight: bold; }
+
+.div-description p {
+  margin-bottom: 0 !important;
+  font-size: 15px; }
+
+.div-cost {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px; }
+
+.inside-div {
+  display: flex; }
+
+/*# sourceMappingURL=acc.css.map */
