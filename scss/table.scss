@@ -1,0 +1,33 @@
+.inform {
+    table {
+        margin: 2% auto 7% auto;
+        border-radius: 20px;
+    }
+}
+.inform {
+    th, td {
+        padding: 10px;
+        border: 1px solid #393B3B;
+    }
+}
+.how-to-do {
+    p{
+        text-align: left;
+        line-height: 24px;
+        letter-spacing: 0.02em;
+
+    }
+    .todo{
+        width: 50%;
+        display: inline-block;
+        float: left;
+    }
+    img{
+        vertical-align: top;
+        height:150px;
+        float: right;
+    }
+}
+.insideDiv{
+    display: block!important;
+}
