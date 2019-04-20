@@ -1,5 +1,12 @@
 
 function init(){
+
+    var out = '';
+    for (var i=0; i<4; i++){
+        out += '<p>Фото - <input type="text" class="ph" style="width: 80%" value=""></p>';
+    }
+    $('.photos').html(out);
+
     $.ajax({
        type: "post",
         url: "core.php",
@@ -109,14 +116,20 @@ function selectGoods(){
             data = JSON.parse(data);
             // console.log(data);
             if (id == 0){
+                init();
                 $('#gname').val('');
                 $('#gprice').val('');
                 $('#preview').val('');
                 $('#description').val('');
                 $('#good_id').val('0');
-                var out = '';
-                out += `<p>Размер: <input type="text" id="" value="" style="width: 10%" class="one-size"> Количество: <input type="text" id="" value="" style="width: 10%" class = "amt"></p>`;
-                $('.sizes').html(out);
+                // var out = '';
+                // out += `<p>Размер: <input type="text" id="" value="" style="width: 10%" class="one-size"> Количество: <input type="text" id="" value="" style="width: 10%" class = "amt"></p>`;
+                // $('.sizes').html(out);
+                // out = '';
+                // for (var i=0; i<4; i++){
+                //     out += '<p>Фото - <input type="text" class="ph" style="width: 80%" value=""></p>';
+                // }
+                // $('.photos').html(out);
             }
             else{
                 $('#gname').val(data[id].name);
@@ -362,13 +375,14 @@ function saveToDb(){
         },
         success: function (data) {
             // data = JSON.parse(data);
-            alert(data);
-            console.log(data);
+            // alert(data);
+            // console.log(data);
             $('#gname').val('');
             $('#gprice').val('');
             $('#preview').val('');
             $('#description').val('');
             $('#good_id').val('0');
+
             // $('.materials, .categories, .photos').find(':input').each(function (i, input) {
             //     ($(input).val(''));
             // });

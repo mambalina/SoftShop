@@ -2,7 +2,6 @@ $(document).ready(function () {
     $(".add-to-basket").click(function () {
         var count_product = $('#product').val();
         var id = $('.add-to-basket').attr('data-id');
-        //todo: поправить значения размеров
         var size = $(".radio:checked").val();
         var price = $("#price").text();
         if (size!== undefined){

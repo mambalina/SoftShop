@@ -1,8 +1,8 @@
 // todo: дописать эту фигню
 
 $(document).ready(function () {
-    function mouselog(event){
-        event.css("display", "block");
-    }
+    $('#login').click(function () {
+        $('.sub-menu').slideToggle(200);
+    })
 });
 
