@@ -73,10 +73,10 @@
                 <div class="information">
                     <h4>Фото</h4>
                     <div class="photos">
-                        <p>Фото - <input type="text" class="ph" style="width: 80%"></p>
-                        <p>Фото - <input type="text" class="ph" style="width: 80%"></p>
-                        <p>Фото - <input type="text"  class="ph" style="width: 80%"></p>
-                        <p>Фото - <input type="text" class="ph" style="width: 80%"></p>
+<!--                        <p>Фото - <input type="text" class="ph" style="width: 80%"></p>-->
+<!--                        <p>Фото - <input type="text" class="ph" style="width: 80%"></p>-->
+<!--                        <p>Фото - <input type="text"  class="ph" style="width: 80%"></p>-->
+<!--                        <p>Фото - <input type="text" class="ph" style="width: 80%"></p>-->
                     </div>
                 </div>
                 <div class="information">

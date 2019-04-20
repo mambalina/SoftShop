@@ -30,7 +30,7 @@
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0 main-menu">
-                    <li class="nav-item active">
+                    <li class="nav-item active" >
                         <?php
                         if ($_COOKIE['login']){
                             //Выводим меню загегистрированного
@@ -45,14 +45,14 @@
                     </li>";}
                         else{
                             //Выводим меню гостя
-                            echo "<a class=\"nav-link\" href=\"#\">Вход <span class=\"sr-only\">(current)</span></a>
+                            echo "<a class=\"nav-link\" href=\"#\" id = \"login\">Вход</a>
                         <!--ФООРМА АВТОРИЗАЦИИ-->
                         <ul class=\" sub-menu\">
                             <form action=\"action.php\"  method=\"post\">
                                 <li>Здравствуйте!</li>
-                                <li><input type=\"email\" placeholder=\"E-mail\" name=\"login\" onmouseover=\"mouselog(event)\" onmouseout=\"mouselog(event)\" required></li>
-                                <li><input type=\"password\" placeholder=\"Пароль\" name=\"pass\" onmouseover=\"mouselog(event)\" required></li>
-                                <li><input type=\"submit\" value=\"Войти\" class=\"btn fbtn\" onmouseover=\"mouselog(event)\"></li>
+                                <li><input type=\"email\" placeholder=\"E-mail\" name=\"login\"  required></li>
+                                <li><input type=\"password\" placeholder=\"Пароль\" name=\"pass\" required></li>
+                                <li><input type=\"submit\" value=\"Войти\" class=\"btn fbtn\"></li>
                             </form>
                         </ul>
                     </li>
@@ -84,22 +84,90 @@
 <!-- фильтр -->
         <div class="btn-group" role="group">
              <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Фильтр
+                    Сортировка
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <a class="dropdown-item" href="#">Без фильтра</a>
-                <a class="dropdown-item" href="#">По возрастанию цены</a>
-                <a class="dropdown-item" href="#">По убыванию цены</a>
-                <a class="dropdown-item" href="#">По новизне</a>
+<!--                <a class="dropdown-item active" href="#">Без фильтра</a>-->
+                <a class="dropdown-item" href="maintov.php?sort=without">Без сортировки</a>
+                <a class="dropdown-item" href="maintov.php?sort=price-asc">По возрастанию цены</a>
+                <a class="dropdown-item" href="maintov.php?sort=price-desc">По убыванию цены</a>
+                <a class="dropdown-item" href="maintov.php?sort=name">От А до Я</a>
             </div>
         </div>
+<style>
+    input[type = 'checkbox'] {
+        position: absolute;
+        left: -9999px;
+    }
+    label {
+        display: inline-block;
+        margin: 0 5px 0 -1px;
+        padding: 8px 10px;
+        border: 1px solid #BBBBBB;
+        /*background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);*/
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .12);
+        cursor: pointer;
+        border-radius: 0;
+
+    }
+    input[type = 'checkbox']:checked + label {
+        background: #f44336cf;
+        color: #fff;
+        /*background: white;*/
+        /*box-shadow: inset 0 3px 6px rgba(0, 0, 0, .2);*/
+    }
+    div:first-child label {
+        margin-left: 0;
+
+    }
+</style>
+        <div class="filtr">
+            <h6>Фильтрация товаров</h6>
+            <?php
+            require_once('connect.php');
+            $link = connect();
+            $STH = $link->query('Select id, name from category');
+            $STH->setFetchMode(PDO::FETCH_ASSOC);
+            while($row = $STH->fetch()) {
+                echo "<input type=\"checkbox\" id='".$row['id']."'
+                    value=".$row['name']." >";
+                echo "<label for='".$row['id']."'>".$row['name']."</label>";
+            }
+            echo "<input type=\"button\" value='Применить' id = 'filtr' >";
+            ?>
+        </div>
+
+    </div>
 
 
             <?php
             require_once('connect.php');
+            $sort = $_GET['sort'];
+            $filtrBy = $_GET['filtrBy'];
             $link = connect();
-            # создаем запрос
             $STH = $link->query('Select id, preview, name, price from good');
+            # создаем запрос
+            switch ($sort){
+
+                case 'price-asc': {
+                    $STH = $link->query('Select id, preview, name, price from good order by price');
+                    break;
+                }
+                case 'price-desc': {
+                    $STH = $link->query('Select id, preview, name, price from good order by price desc');
+                    break;
+                }
+                case 'without': {
+                    $STH = $link->query('Select id, preview, name, price from good');
+                    break;
+                }
+                case 'name': {
+                    $STH = $link->query('Select id, preview, name, price from good order by name');
+                    break;
+                }
+
+            }
+
 
             # выбираем режим выборки
             $STH->setFetchMode(PDO::FETCH_ASSOC);
@@ -285,14 +353,17 @@
 
 
 
+<script src="js/jquery-3.2.1.min.js">
 
-<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+//<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script src="js/main.js"></script>
+<!--<script src="js/main.js"></script>-->
 <script src="js/mouselog.js"></script>
+<script src="js/sotring.js"></script>
+<script src="js/filtration.js"></script>
 <script src="js/checkRegistrarion.js"></script>
 </body>
 </html>

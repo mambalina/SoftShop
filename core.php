@@ -232,15 +232,13 @@ function updateDB(){
 
     //update
     if ($id != 0){
-//        $sql = "UPDATE good SET name='$name', price = '$price', description = '$description', preview = '$preview', gender = '$gender' WHERE id='$id'";
-//        $stmt = $link->prepare($sql);
-//        $stmt->execute();
-//
-//
+        //todo: обновление таблицы good
+        $sql = "UPDATE good SET name='$name', price = '$price', description = '$description', preview = '$preview', gender = '$gender', provider_id='$provider' WHERE id='$id'";
+        $stmt = $link->prepare($sql);
+        $stmt->execute();
 
-//        todo: доделать фото, категории, материалы
-        foreach ($sizes as $key => $value ){
-//            echo "{$key} => {$value} ";
+//todo: обновление таблицы avalibility, обновление количества размера(ов)
+        foreach ($sizes as $key => $value){
             foreach ($value as $size=>$amt){
                 if ($size == 0){
                     $size_amount = $amt;
@@ -251,12 +249,25 @@ function updateDB(){
                     $stmt = $link->prepare($sql);
                     $stmt->execute();
                 }
-
-
-//                echo "{$size}=>{$amt}";
-//                echo ' ';
             }
         }
+
+        $result = $link->query("select id from photo where good_id = '$id'");
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $id_ph = array();
+        $i = 0;
+        while ($row = $result->fetch()){
+            $id_ph[$i] = $row['id'];
+            $i++;
+        }
+        $i = 0;
+        $sql = "UPDATE photo SET src = :src WHERE good_id = :g_id and id = :id";
+        $stmt = $link->prepare($sql);
+        foreach ($photo as $src){
+            $stmt->execute(array(':src' => $src, ':g_id' => $id, ':id' => $id_ph[$i]));
+            $i++;
+        }
+//        todo: доделать фото, категории, материалы
 
 
 

@@ -1,0 +1,19 @@
+{
+  "name": "softshop",
+  "version": "1.0.0",
+  "description": "Практика. Нужно доделать аккаунт, избранное, запросы на главной. Добавить админку и сделать рассылку о заказе",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^4.0.0"
+  },
+  "devDependencies": {
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-watch": "^5.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alina",
+  "license": "ISC"
+}

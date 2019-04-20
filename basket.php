@@ -24,7 +24,7 @@
 <body>
 
 <div class="top-block" id = "top">
-    <div class="container">
+    <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light">
 
             <a class="navbar-brand" href="index.php"><img src="img/logo.png" class = "logo" alt=""></a>
@@ -48,14 +48,14 @@
                     </li>";}
                         else{
                             //Выводим меню гостя
-                            echo "<a class=\"nav-link\" href=\"#\">Вход <span class=\"sr-only\">(current)</span></a>
+                            echo "<a class=\"nav-link\" href=\"#\" id = \"login\">Вход </a>
                         <!--ФООРМА АВТОРИЗАЦИИ-->
                         <ul class=\" sub-menu\">
                             <form action=\"action.php\"  method=\"post\">
                                 <li>Здравствуйте!</li>
-                                <li><input type=\"email\" placeholder=\"E-mail\" name=\"login\" onmouseover=\"mouselog(this)\" onmouseout=\"mouselog(event)\" required></li>
-                                <li><input type=\"password\" placeholder=\"Пароль\" name=\"pass\" onmouseover=\"mouselog(this)\" required></li>
-                                <li><input type=\"submit\" value=\"Войти\" class=\"btn fbtn\" onmouseover=\"mouselog(this)\"></li>
+                                <li><input type=\"email\" placeholder=\"E-mail\" name=\"login\"  required></li>
+                                <li><input type=\"password\" placeholder=\"Пароль\" name=\"pass\" required></li>
+                                <li><input type=\"submit\" value=\"Войти\" class=\"btn fbtn\"></li>
                             </form>
                         </ul>
                     </li>
@@ -167,32 +167,6 @@
 
     </footer>
     <!-- Footer -->
-
-<!--<script>-->
-<!--    $(function () {-->
-<!---->
-<!--        (function quantityProducts() {-->
-<!--            var $quantityArrowMinus = $(".quantity-arrow-minus");-->
-<!--            var $quantityArrowPlus = $(".quantity-arrow-plus");-->
-<!--            var $quantityNum = $(".quantity-num");-->
-<!---->
-<!--            $quantityArrowMinus.click(quantityMinus);-->
-<!--            $quantityArrowPlus.click(quantityPlus);-->
-<!---->
-<!--            function quantityMinus() {-->
-<!--                if ($quantityNum.val() > 1) {-->
-<!--                    $quantityNum.val(+$quantityNum.val() - 1);-->
-<!--                }-->
-<!--            }-->
-<!---->
-<!--            function quantityPlus() {-->
-<!--                $quantityNum.val(+$quantityNum.val() + 1);-->
-<!--            }-->
-<!--        })();-->
-<!---->
-<!--    });-->
-<!--    //# sourceURL=pen.js-->
-<!--</script>-->
 
 
 <script src="js/jquery-3.2.1.min.js">

@@ -32,13 +32,15 @@
             margin: 0 0 0 -1px;
             padding: 8px 10px;
             border: 1px solid #BBBBBB;
-            background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+            /*background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);*/
             box-shadow: 0 2px 5px rgba(0, 0, 0, .12);
             cursor: pointer;
         }
         .sizes input:checked + label {
-            background: white;
-            box-shadow: inset 0 3px 6px rgba(0, 0, 0, .2);
+            background: #f44336cf;
+            color: #fff;
+            /*background: white;*/
+            /*box-shadow: inset 0 3px 6px rgba(0, 0, 0, .2);*/
         }
         .sizes div:first-child label {
             margin-left: 0;
@@ -79,14 +81,14 @@
                     </li>";}
                         else{
                             //Выводим меню гостя
-                            echo "<a class=\"nav-link\" href=\"#\">Вход <span class=\"sr-only\">(current)</span></a>
+                            echo "<a class=\"nav-link\" href=\"#\" id = \"login\">Вход </a>
                         <!--ФООРМА АВТОРИЗАЦИИ-->
                         <ul class=\" sub-menu\">
                             <form action=\"action.php\"  method=\"post\">
                                 <li>Здравствуйте!</li>
-                                <li><input type=\"email\" placeholder=\"E-mail\" name=\"login\" onmouseover=\"mouselog(event)\" onmouseout=\"mouselog(event)\" required></li>
-                                <li><input type=\"password\" placeholder=\"Пароль\" name=\"pass\" onmouseover=\"mouselog(event)\" required></li>
-                                <li><input type=\"submit\" value=\"Войти\" class=\"btn fbtn\" onmouseover=\"mouselog(event)\"></li>
+                                <li><input type=\"email\" placeholder=\"E-mail\" name=\"login\"  required></li>
+                                <li><input type=\"password\" placeholder=\"Пароль\" name=\"pass\"  required></li>
+                                <li><input type=\"submit\" value=\"Войти\" class=\"btn fbtn\"></li>
                             </form>
                         </ul>
                     </li>

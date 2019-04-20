@@ -88,15 +88,15 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0 main-menu">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Вход <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#" id='login'>Вход</a>
 
                         <!--ФООРМА АВТОРИЗАЦИИ-->
                         <ul class="sub-menu">
                             <form action="action.php"  method="post">
                                 <li>Здравствуйте!</li>
-                                <li><input type="email" placeholder="E-mail" name="login" onmouseover="mouselog(event)" onmouseout="mouselog(event)" required></li>
-                                <li><input type="password" placeholder="Пароль" name="pass" onmouseover="mouselog(event)" required></li>
-                                <li><input type="submit" value="Войти" class="btn fbtn" onmouseover="mouselog(event)"></li>
+                                <li><input type="email" placeholder="E-mail" name="login" required></li>
+                                <li><input type="password" placeholder="Пароль" name="pass"  required></li>
+                                <li><input type="submit" value="Войти" class="btn fbtn" ></li>
                             </form>
                         </ul>
                     </li>

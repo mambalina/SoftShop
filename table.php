@@ -49,14 +49,14 @@
                     </li>";}
                         else{
                             //Выводим меню гостя
-                            echo "<a class=\"nav-link\" href=\"#\">Вход <span class=\"sr-only\">(current)</span></a>
+                            echo "<a class=\"nav-link\" href=\"#\"  id='login'>Вход</a>
                         <!--ФООРМА АВТОРИЗАЦИИ-->
                         <ul class=\" sub-menu\">
                             <form action=\"action.php\"  method=\"post\">
                                 <li>Здравствуйте!</li>
-                                <li><input type=\"email\" placeholder=\"E-mail\" name=\"login\" onmouseover=\"mouselog(event)\" onmouseout=\"mouselog(event)\" required></li>
-                                <li><input type=\"password\" placeholder=\"Пароль\" name=\"pass\" onmouseover=\"mouselog(event)\" required></li>
-                                <li><input type=\"submit\" value=\"Войти\" class=\"btn fbtn\" onmouseover=\"mouselog(event)\"></li>
+                                <li><input type=\"email\" placeholder=\"E-mail\" name=\"login\"  required></li>
+                                <li><input type=\"password\" placeholder=\"Пароль\" name=\"pass\" required></li>
+                                <li><input type=\"submit\" value=\"Войти\" class=\"btn fbtn\"></li>
                             </form>
                         </ul>
                     </li>
@@ -214,9 +214,7 @@
 
 
 
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="js/mouselog.js"></script>
