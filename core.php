@@ -64,10 +64,96 @@ switch ($action){
         selectAllSizes();
         break;
     }
-
-
+    case "filtrBy": {
+        filtrBy();
+        break;
+    }
+    case "sortBy": {
+        sortBy();
+        break;
+    }
+    case "selectAllGoods": {
+        selectAllGoods();
+        break;
+    }
 }
 
+
+function selectAllGoods()
+{
+    $link = connect();
+    $STH = $link->query('Select id, preview, name, price from good');
+    $STH->setFetchMode(PDO::FETCH_ASSOC);
+    $i = 0;
+    $arr = [];
+    # выводим результат
+    while($row = $STH->fetch()) {
+        $arr[] = $row;
+        $i++;
+    }
+    echo json_encode($arr);
+}
+
+function sortBy()
+{
+    $sort = $_POST['type'];
+    $link = connect();
+//    $STH = $link->query('Select id, preview, name, price from good');
+
+    switch ($sort){
+        case 'price-asc': {
+            $STH = $link->query('Select id, preview, name, price from good order by price');
+            break;
+        }
+        case 'price-desc': {
+            $STH = $link->query('Select id, preview, name, price from good order by price desc');
+            break;
+        }
+        case 'without': {
+            $STH = $link->query('Select id, preview, name, price from good');
+            break;
+        }
+        case 'name': {
+            $STH = $link->query('Select id, preview, name, price from good order by name');
+            break;
+        }
+    }
+    $STH->setFetchMode(PDO::FETCH_ASSOC);
+    $arr = [];
+    while($row = $STH->fetch()) {
+        $arr[] = $row;
+    }
+    echo json_encode($arr);
+}
+
+function filtrBy()
+{
+    $filtrBy = $_POST['filtrBy'];
+    $link = connect();
+
+    $sql = "Select distinct id, preview, name, price from good, good_category where (";
+    $filtration = "";
+    for ($i = 0; $i<count($filtrBy)-1; $i++){
+        if ($i == count($filtrBy)-2){
+            $filtration .= "category_id = $filtrBy[$i]";
+        }
+       else {
+           $filtration .= "category_id = $filtrBy[$i] or ";
+       }
+    }
+//    $sql .= implode(" or ", $filtration);
+    $sql .= $filtration .") and good.id=good_category.good_id";
+
+//    echo $sql;
+
+    $STH = $link->query($sql);
+    $STH->setFetchMode(PDO::FETCH_ASSOC);
+    $arr = [];
+    while($row = $STH->fetch()) {
+        $arr[] = $row;
+    }
+    echo json_encode($arr);
+}
 
 function addToBasket()
 {

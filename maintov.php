@@ -88,10 +88,10 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 <!--                <a class="dropdown-item active" href="#">Без фильтра</a>-->
-                <a class="dropdown-item" href="maintov.php?sort=without">Без сортировки</a>
-                <a class="dropdown-item" href="maintov.php?sort=price-asc">По возрастанию цены</a>
-                <a class="dropdown-item" href="maintov.php?sort=price-desc">По убыванию цены</a>
-                <a class="dropdown-item" href="maintov.php?sort=name">От А до Я</a>
+                <a class="dropdown-item" href="" id = "without">Без сортировки</a>
+                <a class="dropdown-item" href="" id = "price-asc">По возрастанию цены</a>
+                <a class="dropdown-item" href="" id = "price-desc">По убыванию цены</a>
+                <a class="dropdown-item" href="" id = "name">От А до Я</a>
             </div>
         </div>
 <style>
@@ -138,151 +138,151 @@
         </div>
 
     </div>
-
-
-            <?php
-            require_once('connect.php');
-            $sort = $_GET['sort'];
-            $filtrBy = $_GET['filtrBy'];
-            $link = connect();
-            $STH = $link->query('Select id, preview, name, price from good');
-            # создаем запрос
-            switch ($sort){
-
-                case 'price-asc': {
-                    $STH = $link->query('Select id, preview, name, price from good order by price');
-                    break;
-                }
-                case 'price-desc': {
-                    $STH = $link->query('Select id, preview, name, price from good order by price desc');
-                    break;
-                }
-                case 'without': {
-                    $STH = $link->query('Select id, preview, name, price from good');
-                    break;
-                }
-                case 'name': {
-                    $STH = $link->query('Select id, preview, name, price from good order by name');
-                    break;
-                }
-
-            }
-
-
-            # выбираем режим выборки
-            $STH->setFetchMode(PDO::FETCH_ASSOC);
-            $i = 1;
-            # выводим результат
-            while($row = $STH->fetch()) {
-
-                switch ($i){
-                    case 1:{
-                        echo "<div class=\"all-cards\">
-<div class=\"cards\"><div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
-                <div class=\"card\">
-                    <img src=\"img/" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
-                    <div class=\"card-body\">
-                        <p class=\"card-text\"> " .$row['name'] ." </p>
-                        <p class=\"card-text money\">" .$row['price'] ." грн.</p>
-                        <div class=\"buttons\">
-                            <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
-                            <div class=\"input-image\"><input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- пустой -->
-            <div class=\"col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 \"></div>";
-                        $i++;
-                        break;
-                    }
-                    case 2:{
-                        echo "<div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
-        <div class=\"card\">
-            <img src=\"img/" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
-            <div class=\"card-body\">
-                <p class=\"card-text ttle\">" .$row['name'] ."</p>
-                <p class=\"card-text money\">" .$row['price'] ." грн.</p>
-                <div class=\"buttons\">
-                    <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
-                    <div class=\"input-image\">
-                        <input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>";
-                        $i++;
-                        break;
-                    }
-                    case 3:{
-                        echo "<div class=\"gridDiv\" style=\"margin-top: -30%;\">
-                <div class=\"alone-card\">
-                    <div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
-                        <div class=\"card\">
-                            <img src=\"img/" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
-                            <div class=\"card-body\">
-                                <p class=\"card-text\">" .$row['name'] ."</p>
-                                <p class=\"card-text money\">" .$row['price'] ." грн.</p>
-                                <div class=\"buttons\">
-                                    <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
-                                    <div class=\"input-image\"><input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>";
-                        $i++;
-                        break;
-                    }
-
-                    case 4:{
-                        echo "<div class=\"another-cards cards\">
-                    <div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
-                        <div class=\"card\" style=\"top: 115px;\">
-                            <img src=\"img/" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
-                            <div class=\"card-body\">
-                                <p class=\"card-text\">" .$row['name'] ."</p>
-                                <p class=\"card-text money\">" .$row['price'] ." грн.</p>
-                                <div class=\"buttons\">
-                                   <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
-                                    <div class=\"input-image\"><input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-<!--                   пустой-->
-                    ";
-                        $i++;
-                        break;
-                    }
-                    case 5: {
-                        echo "<div class=\"col -md -2 col-lg -2 col-xl-2 mx-auto mt-3\"></div>
-
-                    <div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
-                        <div class=\"card\">
-                            <img src=\"img /" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
-                            <div class=\"card-body\">
-                                <p class=\"card-text\">" .$row['name'] ."</p>
-                                <p class=\"card-text money\">" .$row['price'] ." грн.</p>
-                                <div class=\"buttons\">
-                                    <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
-                                    <div class=\"input-image\"><input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> <!-- another-cards-->
-
-           </div> <!-- cards -->
-
-        </div> <!-- all-cards -->";
-                    }
-                }
-            }
-            ?>
+    <div class="all-cards"></div>
+<!--            --><?php
+//            require_once('connect.php');
+//            $sort = $_GET['sort'];
+//            $filtrBy = $_GET['filtrBy'];
+//
+//            $link = connect();
+//            $STH = $link->query('Select id, preview, name, price from good');
+//            # создаем запрос
+//            switch ($sort){
+//
+//                case 'price-asc': {
+//                    $STH = $link->query('Select id, preview, name, price from good order by price');
+//                    break;
+//                }
+//                case 'price-desc': {
+//                    $STH = $link->query('Select id, preview, name, price from good order by price desc');
+//                    break;
+//                }
+//                case 'without': {
+//                    $STH = $link->query('Select id, preview, name, price from good');
+//                    break;
+//                }
+//                case 'name': {
+//                    $STH = $link->query('Select id, preview, name, price from good order by name');
+//                    break;
+//                }
+//
+//            }
+//
+//
+//            # выбираем режим выборки
+//            $STH->setFetchMode(PDO::FETCH_ASSOC);
+//            $i = 1;
+//            # выводим результат
+//            while($row = $STH->fetch()) {
+//
+//                switch ($i){
+//                    case 1:{
+//                        echo "<div class=\"all-cards\">
+//<div class=\"cards\"><div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
+//                <div class=\"card\">
+//                    <img src=\"img/" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
+//                    <div class=\"card-body\">
+//                        <p class=\"card-text\"> " .$row['name'] ." </p>
+//                        <p class=\"card-text money\">" .$row['price'] ." грн.</p>
+//                        <div class=\"buttons\">
+//                            <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
+//                            <div class=\"input-image\"><input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
+//                        </div>
+//                    </div>
+//                </div>
+//            </div>
+//            <!-- пустой -->
+//            <div class=\"col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 \"></div>";
+//                        $i++;
+//                        break;
+//                    }
+//                    case 2:{
+//                        echo "<div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
+//        <div class=\"card\">
+//            <img src=\"img/" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
+//            <div class=\"card-body\">
+//                <p class=\"card-text ttle\">" .$row['name'] ."</p>
+//                <p class=\"card-text money\">" .$row['price'] ." грн.</p>
+//                <div class=\"buttons\">
+//                    <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
+//                    <div class=\"input-image\">
+//                        <input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
+//                </div>
+//            </div>
+//        </div>
+//    </div>
+//</div>";
+//                        $i++;
+//                        break;
+//                    }
+//                    case 3:{
+//                        echo "<div class=\"gridDiv\" style=\"margin-top: -30%;\">
+//                <div class=\"alone-card\">
+//                    <div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
+//                        <div class=\"card\">
+//                            <img src=\"img/" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
+//                            <div class=\"card-body\">
+//                                <p class=\"card-text\">" .$row['name'] ."</p>
+//                                <p class=\"card-text money\">" .$row['price'] ." грн.</p>
+//                                <div class=\"buttons\">
+//                                    <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
+//                                    <div class=\"input-image\"><input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
+//                                </div>
+//                            </div>
+//                        </div>
+//                    </div>
+//                </div>";
+//                        $i++;
+//                        break;
+//                    }
+//
+//                    case 4:{
+//                        echo "<div class=\"another-cards cards\">
+//                    <div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
+//                        <div class=\"card\" style=\"top: 115px;\">
+//                            <img src=\"img/" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
+//                            <div class=\"card-body\">
+//                                <p class=\"card-text\">" .$row['name'] ."</p>
+//                                <p class=\"card-text money\">" .$row['price'] ." грн.</p>
+//                                <div class=\"buttons\">
+//                                   <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
+//                                    <div class=\"input-image\"><input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
+//                                </div>
+//                            </div>
+//                        </div>
+//                    </div>
+//
+//<!--                   пустой-->
+//                    ";
+//                        $i++;
+//                        break;
+//                    }
+//                    case 5: {
+//                        echo "<div class=\"col -md -2 col-lg -2 col-xl-2 mx-auto mt-3\"></div>
+//
+//                    <div class=\"col-md-4 col-lg-4 col-xl-4 mx-auto mt-3\">
+//                        <div class=\"card\">
+//                            <img src=\"img /" .$row['preview'] ."\" class=\"card-img-top\" alt=\"...\">
+//                            <div class=\"card-body\">
+//                                <p class=\"card-text\">" .$row['name'] ."</p>
+//                                <p class=\"card-text money\">" .$row['price'] ." грн.</p>
+//                                <div class=\"buttons\">
+//                                    <a href='information.php?id=".$row['id']."'><input type=\"button\" class=\"btn sbtn\" value=\"Подробнее\" data-price=\"333\" data-id='".$row['id']."' data-product=\"Название товара\"></a>
+//                                    <div class=\"input-image\"><input type=\"image\" src=\"img/heart.png\" alt=\"\" onclick='checkRegistration()'></div>
+//                                </div>
+//                            </div>
+//                        </div>
+//                    </div>
+//
+//                </div> <!-- another-cards-->
+//
+//           </div> <!-- cards -->
+//
+//        </div> <!-- all-cards -->";
+//                    }
+//                }
+//            }
+//            ?>
  <div class="pages">
 <!--    <a href="#">Предыдущая</a>-->
 <!--    <a href="#">1</a>-->
@@ -292,7 +292,7 @@
 </div>
 
     </div>
-</div>
+<!--</div>-->
 
 
 
