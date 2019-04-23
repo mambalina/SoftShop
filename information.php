@@ -112,8 +112,8 @@
 
 <div id="menu">
     <ul>
-        <li><a href="#">Женская</a></li>
-        <li><a href="#">Мужская</a></li>
+        <li><a href="maintov.php?gender=w">Женская</a></li>
+        <li><a href="maintov.php?gender=m">Мужская</a></li>
         <li><a href="maintov.php">Вся обувь</a></li>
     </ul>
 </div>
@@ -188,18 +188,21 @@
 
                     echo "<div class=\"more-info text-center\">
                 <h3>Характеристики товара</h3>
-                <p>Артикул: ". $_GET['id']."</p>
                 <p>Материалы:";
                     while ($result_materials = $materials->fetch()){
                         echo " ".$result_materials['name']." ";
                     }
                     echo "</p>
-                <p>Бренд: ".$name['name']."</p>
+                <p>Бренд: ".$name['name']."</p>";
+                $categ = $link->query("Select name from good_category, category where good_id =".$_GET['id']." and category_id = id ");
+                $categ->setFetchMode(PDO::FETCH_ASSOC);
+                echo "<p> Входит в фильтр: ";
+                while ($row = $categ->fetch()){
+                    echo " ".$row['name']." ";
+                }
+                echo " </div></div>";
 
-
-
-            </div>
-        </div>"; ?>
+         ?>
 
                     <!-- Grid column -->
 
@@ -226,10 +229,10 @@
                                     <a href="maintov.php">Вся обувь</a>
                                 </p>
                                 <p>
-                                    <a href="#!">Женская</a>
+                                    <a href="maintov.php?gender=w">Женская</a>
                                 </p>
                                 <p>
-                                    <a href="#!">Мужская</a>
+                                    <a href="maintov.php?gender=m">Мужская</a>
                                 </p>
                             </div>
                             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">

@@ -75,10 +75,10 @@
 
 
             <div class="pic">
-                <div class = "block him" onclick="window.location.href='maintov.php'" id = "his_products"><h3>Для него</h3>
+                <div class = "block him" onclick="window.location.href='maintov.php?gender=m'" id = "his_products"><h3>Для него</h3>
 
                 </div>
-                <div class="block her" onclick="window.location.href='maintov.php'" id = "her_products"><h3>Для неё</h3></div>
+                <div class="block her" onclick="window.location.href='maintov.php?gender=w'" id = "her_products"><h3>Для неё</h3></div>
             </div>
         </div>
 
@@ -101,10 +101,10 @@
                         <a href="maintov.php">Вся обувь</a>
                     </p>
                     <p>
-                        <a href="#!">Женская</a>
+                        <a href="maintov.php?gender=w">Женская</a>
                     </p>
                     <p>
-                        <a href="#!">Мужская</a>
+                        <a href="maintov.php?gender=m">Мужская</a>
                     </p>
                 </div>
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">

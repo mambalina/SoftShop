@@ -66,8 +66,8 @@
 
     <div id="menu">
         <ul>
-            <li><a href="#">Женская</a></li>
-            <li><a href="#">Мужская</a></li>
+            <li><a href="maintov.php?gender=w">Женская</a></li>
+            <li><a href="maintov.php?gender=m">Мужская</a></li>
             <li><a href="maintov.php">Вся обувь</a></li>
         </ul>
     </div>
@@ -144,10 +144,10 @@
                     <a href="maintov.php">Вся обувь</a>
                 </p>
                 <p>
-                    <a href="#!">Женская</a>
+                    <a href="maintov.php?gender=w">Женская</a>
                 </p>
                 <p>
-                    <a href="#!">Мужская</a>
+                    <a href="maintov.php?gender=m">Мужская</a>
                 </p>
             </div>
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">

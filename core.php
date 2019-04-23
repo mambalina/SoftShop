@@ -82,16 +82,46 @@ switch ($action){
 function selectAllGoods()
 {
     $link = connect();
-    $STH = $link->query('Select id, preview, name, price from good');
-    $STH->setFetchMode(PDO::FETCH_ASSOC);
-    $i = 0;
-    $arr = [];
-    # выводим результат
-    while($row = $STH->fetch()) {
-        $arr[] = $row;
-        $i++;
+    if(isset($_POST['gen'])){
+        if ($_POST['gen'] == 'm'){
+            $STH = $link->query('Select id, preview, name, price from good where gender = "м"');
+            $STH->setFetchMode(PDO::FETCH_ASSOC);
+            $i = 0;
+            $arr = [];
+            # выводим результат
+            while($row = $STH->fetch()) {
+                $arr[] = $row;
+                $i++;
+            }
+            echo json_encode($arr);
+        }
+        else{
+            $STH = $link->query('Select id, preview, name, price from good where gender = "ж"');
+            $STH->setFetchMode(PDO::FETCH_ASSOC);
+            $i = 0;
+            $arr = [];
+            # выводим результат
+            while($row = $STH->fetch()) {
+                $arr[] = $row;
+                $i++;
+            }
+            echo json_encode($arr);
+        }
     }
-    echo json_encode($arr);
+    else{
+        $STH = $link->query('Select id, preview, name, price from good');
+        $STH->setFetchMode(PDO::FETCH_ASSOC);
+        $i = 0;
+        $arr = [];
+        # выводим результат
+        while($row = $STH->fetch()) {
+            $arr[] = $row;
+            $i++;
+        }
+        echo json_encode($arr);
+    }
+
+
 }
 
 function sortBy()
@@ -130,22 +160,9 @@ function filtrBy()
 {
     $filtrBy = $_POST['filtrBy'];
     $link = connect();
-
-    $sql = "Select distinct id, preview, name, price from good, good_category where (";
-    $filtration = "";
-    for ($i = 0; $i<count($filtrBy)-1; $i++){
-        if ($i == count($filtrBy)-2){
-            $filtration .= "category_id = $filtrBy[$i]";
-        }
-       else {
-           $filtration .= "category_id = $filtrBy[$i] or ";
-       }
-    }
-//    $sql .= implode(" or ", $filtration);
-    $sql .= $filtration .") and good.id=good_category.good_id";
-
-//    echo $sql;
-
+    $last = array_pop($filtrBy);
+    $filtration = implode(',', $filtrBy);
+    $sql = "Select distinct id, preview, name, price from good, good_category where category_id IN ($filtration) and good.id=good_category.good_id";
     $STH = $link->query($sql);
     $STH->setFetchMode(PDO::FETCH_ASSOC);
     $arr = [];
@@ -154,6 +171,46 @@ function filtrBy()
     }
     echo json_encode($arr);
 }
+//function filtrBy()
+//{
+////    шото непонятное
+//    $filtrBy = $_POST['filtrBy'];
+//    $link = connect();
+//    $last = array_pop($filtrBy);
+//    $filtration = implode(',', $filtrBy);
+//
+//    if (count($filtrBy) == 1){
+//        $sql = "Select distinct id, preview, name, price from good, good_category where category_id IN ($filtration) and good.id=good_category.good_id";
+//        $STH = $link->query($sql);
+//        $STH->setFetchMode(PDO::FETCH_ASSOC);
+//        $arr = [];
+//        while($row = $STH->fetch()) {
+//            $arr[] = $row;
+//        }
+//        echo json_encode($arr);
+//    }
+//    else {
+//        $f = "";
+//
+//        for ($i = 0; $i < count($filtrBy); $i++) {
+//            if ($i == 0) {
+//                $f = "Select distinct id, preview, name, price from good, good_category where category_id = $filtrBy[$i]  and good.id=good_category.good_id";
+//
+//            }
+//            else {
+//                $sql = "Select distinct id, preview, name, price from ($f) where category_id =$filtrBy[$i] and good.id=good_category.good_id";
+//                $f = $sql;
+//            }
+//        }
+//        $STH = $link->query('$f');
+//        $STH->setFetchMode(PDO::FETCH_ASSOC);
+//        $arr = [];
+//        while($row = $STH->fetch()) {
+//            $arr[] = $row;
+//        }
+//        echo json_encode($arr);
+//    }
+//}
 
 function addToBasket()
 {
