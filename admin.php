@@ -63,7 +63,7 @@
                 </div>
                 <div class="good">
                     <h4>Размеры</h4>
-                    <button class="quantity-arrow-plus"  onclick="plusGoods(this);"> + </button>
+<!--                    <button class="quantity-arrow-plus" id = "add-size" > + </button>-->
                     <div class="sizes"></div>
                 </div>
             </div>
@@ -81,14 +81,14 @@
                 </div>
                 <div class="information">
                     <h4>Категории</h4>
-                    <button class="quantity-arrow-plus"  onclick="plusGoods(this);"> + </button>
+                    <button class="quantity-arrow-plus" id = "add-category"> + </button>
                     <div class="categories">
                         <input type="text" class="categ">
                     </div>
                 </div>
                 <div class="information">
                     <h4>Материалы</h4>
-                    <button class="quantity-arrow-plus"  onclick="plusGoods(this);"> + </button>
+                    <button class="quantity-arrow-plus" id = "add-material"> + </button>
                     <div class="materials">
                         <input type="text" class = "mater">
                     </div>

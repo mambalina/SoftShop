@@ -76,6 +76,10 @@ switch ($action){
         selectAllGoods();
         break;
     }
+    case "deleteGood": {
+        deleteGood();
+        break;
+    }
 }
 
 
@@ -156,6 +160,27 @@ function sortBy()
     echo json_encode($arr);
 }
 
+function deleteGood()
+{
+    //todo: delete ITEM
+    $link = connect();
+    $link->beginTransaction();
+    $sql = "Delere from good where id=".$_POST['id']."";
+    $STH = $link->prepare($sql);
+    $STH->execute();
+    $sql = "Delere from good_material where good_id=".$_POST['id']."";
+    $STH = $link->prepare($sql);
+    $STH->execute();
+    $sql = "Delere from good_category where good_id=".$_POST['id']."";
+    $STH = $link->prepare($sql);
+    $STH->execute();
+    $sql = "Delere from photo where good_id=".$_POST['id']."";
+    $STH = $link->prepare($sql);
+    $STH->execute();
+
+
+
+}
 function filtrBy()
 {
     $filtrBy = $_POST['filtrBy'];
@@ -440,14 +465,20 @@ function updateDB(){
 //
             $sql = "INSERT INTO good_material (good_id, material_id) VALUES (:good_id, :material_id)";
             $stmt = $link->prepare($sql);
-            $stmt->execute(array(':good_id' => $id, ':material_id' => $material));
+            foreach ($material as $mat){
+                $stmt->execute(array(':good_id' => $id, ':material_id' => $mat));
+            }
+
 
             $sql = "INSERT INTO good_category (good_id, category_id) VALUES (:good_id, :category_id)";
             $stmt = $link->prepare($sql);
-            $stmt->execute(array(':good_id' => $id, ':category_id' => $category));
+            foreach ($category as $cat){
+                $stmt->execute(array(':good_id' => $id, ':category_id' => $cat));
+            }
 
             $sql = "INSERT INTO avalibility (good_id, size_id, amount) VALUES (:good_id, :size_id, :amt)";
             $stmt = $link->prepare($sql);
+
             $stmt->execute(array(':good_id' => $id, ':size_id' => $size, ':amt' => $amt));
 
 
