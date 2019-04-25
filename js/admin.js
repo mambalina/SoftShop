@@ -103,6 +103,9 @@ function init(){
 function selectGoods(){
     var id = $('.goods select option:selected').attr('data-id');
 
+    // if (id != 0){
+    //     $(".button").append("<a onclick='deleteGood("+id+");' style='cursor: pointer'>Удалить</a>");
+    // }
 
     //вывод информации о товаре
     $.ajax({
@@ -122,14 +125,7 @@ function selectGoods(){
                 $('#preview').val('');
                 $('#description').val('');
                 $('#good_id').val('0');
-                // var out = '';
-                // out += `<p>Размер: <input type="text" id="" value="" style="width: 10%" class="one-size"> Количество: <input type="text" id="" value="" style="width: 10%" class = "amt"></p>`;
-                // $('.sizes').html(out);
-                // out = '';
-                // for (var i=0; i<4; i++){
-                //     out += '<p>Фото - <input type="text" class="ph" style="width: 80%" value=""></p>';
-                // }
-                // $('.photos').html(out);
+
             }
             else{
                 $('#gname').val(data[id].name);
@@ -157,14 +153,21 @@ function selectGoods(){
                         console.log(data);
 
                         // var out = '';
-                        var out = '';
+                        //
                         // for (var id in data){
-                        //     out += `<p>Размер: <select><option data-id="${id}"style="width: 10%" class="one-size">${data[id].size_name}</option></select> Количество: <input type="text" data-id="amt" value="${data[id].amount}" style="width: 10%" class = "amt" </p>`;
+                        //     out += `<p>Размер: <input type="text" data-id="${id}" value="${data[id].size_name}" style="width: 10%" readonly="readonly"> Количество: <input type="text" id="${id}" value="${data[id].amount}" style="width: 10%" class="amt"></p>`;
                         // }
-                        // // out +=  ';
                         // $('.sizes').html(out);
+
+
+                        var out = '';
+                        // out += `<p>Размер: <input type="text" id="" value="" style="width: 10%" class="one-size"> Количество: <input type="text" id="" value="" style="width: 10%" class = "amt"></p>`;
+                        // out += ``;
                         for (var id in data){
-                            out += `<p>Размер: <input type="text" data-id="${id}" value="${data[id].size_name}" style="width: 10%" readonly="readonly"> Количество: <input type="text" id="${id}" value="${data[id].amount}" style="width: 10%" class="amt"></p>`;
+                            out += '<p>Размер: <select>';
+                            out += `<option data-id="${id}" style="width: 10%" class="one-size">${data[id].size_name}</option>`;
+                            out += `</select> Количество: <input type="text" id="${id}" data-id="amt" value="${data[id].amount}" style="width: 10%" class = "amt" </p>`;
+
                         }
                         $('.sizes').html(out);
                     }
@@ -213,17 +216,17 @@ function selectGoods(){
                     success : function (data) {
                         data = JSON.parse(data);
                         // console.log(data);
-                        var out = '';
-                        for (var id in data){
-                            out += `<input data-id = "${id}"  class='categ' value="${data[id].name}" readonly="readonly">`;
-                        }
-                            // for (var id in data){
-                        //     out += '<select>';
-                        //     out += `<option data-id = "${id}"  class='categ'>${data[id].name}</option>`
-                        //     out += '</select>';
+                        // var out = '';
+                        // for (var id in data){
+                        //     out += `<input data-id = "${id}"  class='categ' value="${data[id].name}" readonly="readonly">`;
                         // }
-
-
+                        // $('.categories').html(out);
+                        var out='';
+                        for (var id in data){
+                            out += '<select>';
+                            out += `<option data-id = "${id}">${data[id].name}</option></select>`;
+                        }
+                        // out += '';
                         $('.categories').html(out);
                     }
                 });
@@ -242,12 +245,11 @@ function selectGoods(){
 
                         var out = '';
                         // for (var id in data){
-                        //     out += '<select>';
-                        //     out += `<option data-id = "${id}"  class='mater'>${data[id].name}</option>`
-                        //     out += '</select>';
+                        //     out += `<input data-id = "${id}"  class='mater' value="${data[id].name}" readonly="readonly">`;
                         // }
+                        // $('.materials').html(out);
                         for (var id in data){
-                            out += `<input data-id = "${id}"  class='mater' value="${data[id].name}" readonly="readonly">`;
+                            out += `<select><option data-id = "${id}">${data[id].name}</option></select>`;
                         }
                         $('.materials').html(out);
                     }
@@ -255,12 +257,21 @@ function selectGoods(){
             }
         }
     });
-    // $('.one-size').find('input').each(function () {
-    //     sizes['name'] = $(this).val()
-    // });
-    // for (var i = 0; i<sz.length; i++){
-    //     sizes[i] = sz.val();
-    // }
+}
+
+function deleteGood(id) {
+    // var id = i;
+    $.ajax({
+        type: "post",
+        url: "core.php",
+        data: {
+            "action": "deleteGood",
+            "id": id,
+        },
+        success: function () {
+            alert("GOOD HAS BEEN DELETED!!!!")
+        }
+    });
 }
 
 function saveToDb(){
@@ -281,8 +292,32 @@ function saveToDb(){
             size[key] = [$(input).val(),$(input).attr('id') ];
             key++;
         }
-
     });
+    // var amt = [];
+    // $('.amt').find('select option:selected').each(function (i, input) {
+    //     amt.push($(input).attr('data-id'));
+    // });
+
+    // var size = [];
+    // var key = 0;
+    // $('.sizes').find(':input').each(function (i, input) {
+    //     if ($(input).attr('id') != undefined){
+    //         size[key] = [$(input).val(),$(input).attr('id') ];
+    //         key++;
+    //     }
+    //
+    // });
+
+
+    // var size = [];
+    // $('.sizes').find('select option:selected').each(function (i, input) {
+    //     size.push($(input).attr('data-id'));
+    // });
+    //
+    // var amt = [];
+    // $('.amt').find('select option:selected').each(function (i, input) {
+    //     amt.push($(input).attr('data-id'));
+    // });
     console.log(size);
 
     //берём фотки
@@ -292,68 +327,71 @@ function saveToDb(){
     });
     console.log(photo);
 
+    var category = [];
+    $('.categories').find('select option:selected').each(function (i, input){
+        category.push($(input).attr('data-id'));
+    });
 
-    if (id != 0){
+    var material= [];
+    $('.materials').find( 'select option:selected').each(function (i, input) {
+        material.push($(input).attr('data-id'));
+    });
 
-        //берём категории
-        var category = [];
-        $('.categories').find(':input').each(function (i, input) {
-            category.push($(input).attr('data-id'))
-            // category[$(this).attr('id')] = $(input).val();
-        });
-        console.log(category);
+    // var size = $('.sizes select option:selected').attr('data-id');
+    // var amt = $('.amt').val();
 
-        //берём материалы
-        var material = [];
-        $('.materials').find(':input').each(function (i, input) {
-            material.push($(input).attr('data-id'));
-
-        });
-        // $('.materials:input').each(function () {
-        //     material[i]['id'] = $(this).val();
-        //     alert($(this).val());
-        //     i++;
-        // });
-        //берём размеры и их количество
-
-        console.log(material);
-
-        // $.ajax({
-        //     type: "post",
-        //     url: "core.php",
-        //     data: {
-        //         "action": "updateDB",
-        //         "id" : id,
-        //         "name" : $('#gname').val(),
-        //         "price" : $('#gprice').val(),
-        //         "description" : $('#description').val(),
-        //         "gender" : gen,
-        //         "preview" :  $('#preview').val(),
-        //         "sizes" : sizes,
-        //         "photo" : photo,
-        //         "category" : category,
-        //         "material" : material
-        //     },
-        //     success: function (data) {
-        //         alert(data);
-        //         $('#gname').val('');
-        //         $('#gprice').val('');
-        //         $('#preview').val('');
-        //         $('#description').val('');
-        //         $('#good_id').val('0');
-        //         $('.materials, .categories, .photos').find(':input').each(function (i, input) {
-        //             ($(input).val(''));
-        //         });
-        //         init();
-        //     }
-        // });
-    }
-    else{
-        var category = $('.categories select option:selected').attr('data-id');
-        var material= $('.materials select option:selected').attr('data-id');
-        var size = $('.sizes select option:selected').attr('data-id');
-        var amt = $('.amt').val();
-    }
+    // if (id != 0){
+    //
+    //     //берём категории
+    //     var category = [];
+    //     $('.categories').find(':input').each(function (i, input) {
+    //         category.push($(input).attr('data-id'))
+    //         // category[$(this).attr('id')] = $(input).val();
+    //     });
+    //     console.log(category);
+    //
+    //     //берём материалы
+    //     var material = [];
+    //     $('.materials').find(':input').each(function (i, input) {
+    //         material.push($(input).attr('data-id'));
+    //
+    //     });
+    //
+    //     //берём размеры и их количество
+    //
+    //     console.log(material);
+    //
+    //     // $.ajax({
+    //     //     type: "post",
+    //     //     url: "core.php",
+    //     //     data: {
+    //     //         "action": "updateDB",
+    //     //         "id" : id,
+    //     //         "name" : $('#gname').val(),
+    //     //         "price" : $('#gprice').val(),
+    //     //         "description" : $('#description').val(),
+    //     //         "gender" : gen,
+    //     //         "preview" :  $('#preview').val(),
+    //     //         "sizes" : sizes,
+    //     //         "photo" : photo,
+    //     //         "category" : category,
+    //     //         "material" : material
+    //     //     },
+    //     //     success: function (data) {
+    //     //         alert(data);
+    //     //         $('#gname').val('');
+    //     //         $('#gprice').val('');
+    //     //         $('#preview').val('');
+    //     //         $('#description').val('');
+    //     //         $('#good_id').val('0');
+    //     //         $('.materials, .categories, .photos').find(':input').each(function (i, input) {
+    //     //             ($(input).val(''));
+    //     //         });
+    //     //         init();
+    //     //     }
+    //     // });
+    // }
+    // else{    }
 
     $.ajax({
         type: "post",
@@ -367,36 +405,87 @@ function saveToDb(){
             "gender" : gen,
             "preview" :  $('#preview').val(),
             "size" : size,
-            "amt" : amt,
+            // "amt" : amt,
             "photo" : photo,
             "category" : category,
             "material" : material,
             "provider" : provider
         },
-        success: function (data) {
-            // data = JSON.parse(data);
-            // alert(data);
-            // console.log(data);
+        success: function () {
+
             $('#gname').val('');
             $('#gprice').val('');
             $('#preview').val('');
             $('#description').val('');
             $('#good_id').val('0');
 
-            // $('.materials, .categories, .photos').find(':input').each(function (i, input) {
-            //     ($(input).val(''));
-            // });
             init();
         }
     });
+}
 
+function addSize() {
+    $.ajax({
+        type: "post",
+        url: "core.php",
+        data: {
+            "action": "selectAllSizes"
+        },
+        success: function (data) {
+            data = JSON.parse(data);
+            out = '<p>Размер: ';
+            out += `<select>`;
+            for (var id in data){
+                out += `<option data-id="${id}"style="width: 10%" class="one-size">${data[id].size_name}</option>`;
+            }
+            out += '</select> Количество: <input type="text" data-id="amt" value="" style="width: 10%" class = "amt" </p> ';
+            $('.sizes').append(out);
+        }
+    });
+}
 
+function addCategory(){
+    $.ajax({
+        type: "post",
+        url: "core.php",
+        data: {
+            "action": "selectAllCategories"
+        },
+        success: function (data) {
+            data = JSON.parse(data);
+            var out = '<select>';
+            for (var id in data){
+                out += `<option data-id = "${id}">${data[id].name}</option>`
+            }
+            out += '</select>';
+            $('.categories').append(out);
+        }
+    });
 
-
-
+}
+function addMaterial(){
+    $.ajax({
+        type: "post",
+        url: "core.php",
+        data: {
+            "action": "selectAllMaterials"
+        },
+        success: function (data) {
+            data = JSON.parse(data);
+            var out = '<select>';
+            for (var id in data){
+                out += `<option data-id = "${id}">${data[id].name}</option>`
+            }
+            out += '</select>';
+            $('.materials').append(out);
+        }
+    });
 }
 
 $(document).ready(function () {
 	init();
     $('.add-to-db').on('click', saveToDb);
+    $('#add-size').on('click', addSize);
+    $('#add-category').on('click', addCategory);
+    $('#add-material').on('click', addMaterial);
 });
