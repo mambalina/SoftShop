@@ -37,18 +37,18 @@
                     <li class="nav-item active">
 
                         <?php
-                        echo "<a  class=\"nav-link\" href=\"account.php\">";
-                        echo  $_COOKIE['name'] .' ' .$_COOKIE['l_name']. " <span class=\"sr-only\">(current)</span></a>"; ?>
+                        echo "<a  class=\"nav-link\" href=\"account.php?page=o\">";
+                        echo  $_COOKIE['name'] .' ' .$_COOKIE['l_name']. " </a>"; ?>
 
 
 <!--                        <a class="nav-link" href="#">Имя <span class="sr-only">(current)</span></a>-->
 
 
                         <ul class="sub-menu-acc sub-menu">
-                            <li><a href="#">Мои заказы</a></li>
-                            <li><a href="">Избранное</a></li>
-                            <li><a href="#">Мои данные</a></li>
-                            <li><a href="#">Выход</a></li>
+                            <li><a href="account.php?page=o">Мои заказы</a></li>
+                            <li><a href="account.php?page=f">Избранное</a></li>
+                            <li><a href="account.php?page=d">Мои данные</a></li>
+                            <li><a href="account.php?page=e">Выход</a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a href="#" style="opacity: 0.9" onclick='checkRegistration()'><img src="img/heart.png" class="bag" alt=""></a></li>
@@ -80,10 +80,10 @@
                 <div class="sidebar">
                     <div class="category-wrap">
                         <ul>
-                            <li><div class="menu-left"><a href="">Мои заказы</a></div></li>
-                            <li><div class="menu-left"><a href="">Избранное</a></div></li>
-                            <li><div class="menu-left"><a href="">Мои данные</a></div></li>
-                            <li><div class="menu-left"><a href="">Выход</a></div></li>
+                            <li><a href="account.php?page=o">Мои заказы</a></li>
+                            <li><a href="account.php?page=f">Избранное</a></li>
+                            <li><a href="account.php?page=d">Мои данные</a></li>
+                            <li><a href="account.php?page=e">Выход</a></li>
                         </ul>
                     </div>
                 </div>
@@ -96,19 +96,20 @@
                             </ul>
                         </div>
                         <div class="div-goods">
-                            <div class="div-one-good">
-                                <div class="div-img">
-                                    <img src="img/her.jpg" alt="">
-                                </div>
-                                <div class="div-description">
-                                    <h6>Название кросовок</h6>
-                                    <p>Размер - <span>2</span></p>
-                                    <p>Количество - <span>2</span></p>
-                                </div>
-                                <div class="div-cost">
-                                    356 грн.
-                                </div>
-                            </div>
+<!--                            <div class="div-one-good">-->
+<!--                                <div class="div-img">-->
+<!--                                    <img src="img/her.jpg" alt="">-->
+<!--                                </div>-->
+<!--                                <div class="div-description">-->
+<!--                                    <h6>Название кросовок</h6>-->
+<!--                                    <p>Размер - <span>2</span></p>-->
+<!--                                    <p>Количество - <span>2</span></p>-->
+<!--                                </div>-->
+<!--                                <div class="state text-success"></div>-->
+<!--                                <div class="div-cost">-->
+<!--                                    356 грн.-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
 
@@ -180,10 +181,10 @@
 <!-- Footer -->
 
 
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src = "js/jquery-3.2.1.min.js"></script>
+<script src = "js/jquery.cookie.js"></script>
+<script src ="js/account.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>

@@ -16,13 +16,14 @@ if($_POST['login'] && $_POST['pass']){
         }
     } 
 	else {
-	    setcookie("login", $login, time() + 300);
-	    setcookie("password", $pass, time() + 300);
+	    setcookie("login", $login);
+	    setcookie("password", $pass);
+//	    setcookie("password", $pass, time() + 300);
 	    $res = mysqli_fetch_array($result);
 	    $name = $res['name'];
 	    $l_name = $res['l_name'];
-	    setcookie('name', $name, time() + 300);
-	    setcookie('l_name', $l_name, time() + 300);
-	    header("Location: account.php");
+	    setcookie('name', $name);
+	    setcookie('l_name', $l_name);
+	    header("Location: account.php?page=o");
     }
 }
