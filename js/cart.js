@@ -54,7 +54,7 @@ function showBasket() {
                                    // <!--ввод кол-ва-->
                                out += `<div class="quantity-block">`;
                                   out += `<button class="quantity-arrow-minus" data-id = "${k}" onclick="minusGoods(this);"> - </button>`;
-                               out += `<input class="quantity-num" type="number" value="${idCard[k][2]}" readonly='readonly'/>`;
+                               out += `<input class="quantity-num" type="number" id = "${k}" value="${idCard[k][2]}" readonly='readonly'/>`;
                                    out += `<button class="quantity-arrow-plus" data-id = "${k}" onclick="plusGoods(this);"> + </button>`;
 
                                out += `</div>`;
@@ -95,6 +95,7 @@ function minusGoods(good) {
 
 function plusGoods(good) {
     id = $(good).data('id');
+
     cart[id][2]++;
     setCartData();
     showBasket();
@@ -123,34 +124,94 @@ function deleteItem(id){
 }
 
 function sendEmail(){
-    var email = $('#email').val();
-    var name = $('#name').val();
-    var l_name = $('#l_name').val();
-    // var tel = $('.tel').val();
-    if (email!= '' && name!= '' && l_name!=''){
+    if (!$.cookie('login')) {
+        var email = $('#email').val();
+        var name = $('#name').val();
+        var l_name = $('#l_name').val();
+
+        if (email!= '' && name!= '' && l_name!=''){
+            $.ajax({
+                type: "post",
+                url: "core.php",
+                data: {
+                    "action" : "addNewOrder",
+                    "email" : email,
+                    "name" : name,
+                    "l_name" : l_name,
+                    "cart" : cart
+                },
+                success : function (id) {
+                    $.ajax({
+                        method: "post",
+                        url: "core.php",
+                        data: {
+                            "action": "sendEmail",
+                            "email": email,
+                            "name": name,
+                            "l_name":l_name,
+                            "cart": cart,
+                            "id" : id
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if(data==1){
+                                alert('Заказ принят! Проверьте почту для просмотра информации');
+
+                                localStorage.clear();
+                                cart = {};
+                                setCartData();
+                                $('.popup_bg, .popup').fadeOut(500);
+                                showBasket();
+                            }
+                            else{
+                                alert('Повторите заказ')
+                            }
+                        }
+                    });
+                }
+            });
+
+        }
+        else {
+            alert('Заполните поля!');
+        }
+    }
+    else{
         $.ajax({
-           method: "post",
-           url: "core.php",
+            type: "post",
+            url: "core.php",
             data: {
-                "action": "sendEmail",
-               "email": email,
-                "name": name,
-                "l_name":l_name,
-                "cart": cart
+                "action" : "addNewOrder",
+                "cart" : cart
             },
-            dataType: "json",
-            success: function (data) {
-                if(data==1){
-                    alert('Заказ принят!');
-                }
-                else{
-                    alert('Повторите заказ')
-                }
+            success: function (id) {
+                $.ajax({
+                    method: "post",
+                    url: "core.php",
+                    data: {
+                        "action": "sendEmail",
+                        "cart": cart,
+                        "id" : id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data==1){
+                            alert('Заказ принят! Проверьте почту для просмотра информации');
+
+                            localStorage.clear();
+                            cart = {};
+                            setCartData();
+                            showBasket();
+                        }
+                        else{
+                            alert('Повторите заказ')
+                        }
+                    }
+                });
             }
         });
-    }
-    else {
-        alert('Заполните поля!');
+
+
     }
 
 
@@ -160,13 +221,20 @@ $(document).ready(function () {
 	loadCart();
     $('.popup, .popup_bg').hide();
 	 $('#oplata').on('click', function () {
-         $('.popup, .popup_bg').show();
-         $('.popup_bg').animate({
-             opacity:0.8
-         })
+	     if ($.cookie('login')){
+             sendEmail();
+         }
+	     else{
+             $('.popup, .popup_bg').show();
+             $('.popup_bg').animate({
+                 opacity:0.8
+             });
+
+         }
+         $('.popup_bg').click(function () {
+             $('.popup_bg, .popup').fadeOut(500);
+         });
      });
-	 $('.popup_bg').click(function () {
-         $('.popup_bg, .popup').fadeOut(500);
-     });
+
 
 });

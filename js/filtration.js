@@ -139,8 +139,10 @@ $(document).ready(function () {
         }
     });
 
-    $('.dropdown-item').on('click', function () {
+    $('.dropdown-item').bind('click', function () {
+
         var type = $(this).attr("id");
+        // alert(type);
         $.ajax({
             type: "post",
             url: "core.php",
@@ -254,17 +256,22 @@ $(document).ready(function () {
         });
         return false;
     });
-    $('#filtr').on('click', function () {
-        var filtrBy = $("input:checkbox:checked").map(function () {return $(this).attr('id')}).get();
-        console.log(filtrBy);
+    $('#filtr').bind('click', function () {
+        // var filtrBy = $("input:checkbox:checked").map(function () {return $(this).attr('id')}).get();
+        var filtrBy = [];
+        var i = 0;
+        $("input[name='filtr']:checked").each(function () {
+            filtrBy.push($(this).attr('id'));
+        });
+        var filtr = JSON.stringify(filtrBy);
         $.ajax({
             type: "post",
             url: "core.php",
             data: {
                 "action" : "filtrBy",
-                "filtrBy" : filtrBy
+                "filtr" : filtr
             },
-            success(data){
+            success: function(data){
                 data = JSON.parse(data);
                 console.log(data);
                 var out = '';
