@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 21 2019 г., 14:16
+-- Время создания: Май 02 2019 г., 00:24
 -- Версия сервера: 10.3.13-MariaDB
 -- Версия PHP: 7.1.22
 
@@ -42,17 +42,17 @@ CREATE TABLE `avalibility` (
 --
 
 INSERT INTO `avalibility` (`id`, `size_id`, `good_id`, `amount`) VALUES
-(1, 4, 1, 100),
-(2, 1, 1, 70),
+(1, 4, 1, 99),
+(2, 1, 1, 69),
 (3, 2, 1, 50),
 (4, 3, 1, 150),
-(5, 6, 3, 80),
+(5, 6, 3, 79),
 (6, 3, 3, 90),
 (7, 3, 6, 40),
 (8, 7, 6, 45),
-(9, 7, 7, 30),
-(10, 1, 7, 60),
-(11, 2, 8, 30),
+(9, 7, 7, 29),
+(10, 1, 7, 59),
+(11, 2, 8, 26),
 (12, 5, 8, 20),
 (13, 9, 8, 60);
 
@@ -92,7 +92,7 @@ CREATE TABLE `customer` (
   `adress` char(255) DEFAULT NULL,
   `phone` char(14) DEFAULT NULL,
   `email` char(255) NOT NULL,
-  `pword` char(50) NOT NULL,
+  `pword` char(50) DEFAULT NULL,
   `birhday` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -115,7 +115,9 @@ INSERT INTO `customer` (`id`, `name`, `l_name`, `adress`, `phone`, `email`, `pwo
 (123, 'Ирина', 'Романова', NULL, NULL, 'adiala@mail.', 'aas', NULL),
 (124, 'Lia', 'Kamper', NULL, NULL, 'liakamperr@mail.ru', 'aas', NULL),
 (125, 'Lia', 'Kamper', NULL, NULL, 'lia@mail.ru', 'qwe', NULL),
-(127, 'Pinky', 'Shy', NULL, NULL, 'PinkyShy@mail.ru', '123123', NULL);
+(127, 'Pinky', 'Shy', NULL, NULL, 'PinkyShy@mail.ru', '123123', NULL),
+(130, 'Гость', 'bebe', NULL, NULL, 'ms501@gmail.com', NULL, NULL),
+(131, 'Гость', 'Малин', NULL, NULL, 'fisn@mail.ru', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -139,9 +141,9 @@ CREATE TABLE `good` (
 
 INSERT INTO `good` (`id`, `provider_id`, `price`, `preview`, `name`, `description`, `gender`) VALUES
 (1, 1, 1230, 'her.jpg', 'Falcon DB2714', 'Удобны при ношении. Прорезиненный низ подошвы для лучшего сохранения', 'ж'),
-(3, 1, 935, 'NewBalance501AthleticShoe4.jpg', 'Athletic Shoe', 'Внутри такой обуви стопы равномерно дышат, чему способствуют продуманные вставки для отвода тепла и влаги.', 'ж'),
-(6, 3, 890, 'PUMAxBTSBasketPatentSneakers.jpg', 'Basket Patent', 'Отличный выбор для тех, кто любит качество и удобство', 'ж'),
-(7, 1, 1130, 'SharksхNikanorYarmin2.jpg', 'Sharks Nikanor Yarmin', 'Выбор номер 1 среди молодёжи!', 'ж'),
+(3, 2, 935, 'NewBalance501AthleticShoe4.jpg', 'Athletic Shoe', 'Внутри такой обуви стопы равномерно дышат, чему способствуют продуманные вставки для отвода тепла и влаги.', 'ж'),
+(6, 3, 890, 'PUMAxBTSBasketPatentSneakers.jpg', 'Basket Patent', 'Отличный выбор для тех, кто любит качество и удобство', 'м'),
+(7, 1, 1130, 'SharksхNikanorYarmin2.jpg', 'Sharks Nikanor Yarmin', 'Выбор номер 1 среди молодёжи!', 'м'),
 (8, 5, 999, 'Vans_Classic_Old_Skool_Custom_Rose_2.jpg', 'Old Skool Custom Rose', 'Удобная и качественная кастомная модель кед.', 'ж');
 
 -- --------------------------------------------------------
@@ -175,10 +177,8 @@ INSERT INTO `good_category` (`good_id`, `category_id`) VALUES
 (3, 5),
 (6, 5),
 (8, 5),
-(NULL, 5),
 (NULL, 1),
-(NULL, 5),
-(NULL, 6),
+(NULL, 2),
 (NULL, 1);
 
 -- --------------------------------------------------------
@@ -206,10 +206,7 @@ INSERT INTO `good_material` (`good_id`, `material_id`) VALUES
 (3, 2),
 (8, 4),
 (8, 2),
-(NULL, 3),
 (NULL, 1),
-(NULL, 2),
-(NULL, 4),
 (NULL, 5);
 
 -- --------------------------------------------------------
@@ -233,6 +230,26 @@ INSERT INTO `material` (`id`, `name`) VALUES
 (3, 'Кожа'),
 (4, 'Резина'),
 (5, 'Кожзам');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `orders`
+--
+
+CREATE TABLE `orders` (
+  `id_ord` int(11) NOT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `order_date` date NOT NULL DEFAULT current_timestamp(),
+  `status_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id_ord`, `customer_id`, `order_date`, `status_id`) VALUES
+(1, 1, '2019-04-28', 1);
 
 -- --------------------------------------------------------
 
@@ -300,20 +317,19 @@ INSERT INTO `provider` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `purchase` (
-  `id` int(11) NOT NULL,
-  `customer_id` int(11) DEFAULT NULL,
+  `id_p` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
   `good_id` int(11) DEFAULT NULL,
-  `order_date` date NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `status_id` int(11) DEFAULT NULL
+  `size_id` int(11) DEFAULT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `purchase`
 --
 
-INSERT INTO `purchase` (`id`, `customer_id`, `good_id`, `order_date`, `quantity`, `status_id`) VALUES
-(1, 1, 1, '2019-03-23', 1, 1);
+INSERT INTO `purchase` (`id_p`, `order_id`, `good_id`, `size_id`, `quantity`) VALUES
+(1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -357,9 +373,9 @@ CREATE TABLE `state` (
 --
 
 INSERT INTO `state` (`id`, `purchase_state`) VALUES
-(1, 'В корзине'),
-(2, 'Сделан заказ'),
-(3, 'Оплачено'),
+(1, 'Сделан заказ'),
+(2, 'Оплачено'),
+(3, 'В пути'),
 (4, 'Закрыт');
 
 --
@@ -415,6 +431,14 @@ ALTER TABLE `material`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id_ord`),
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `status_id` (`status_id`);
+
+--
 -- Индексы таблицы `photo`
 --
 ALTER TABLE `photo`
@@ -431,10 +455,10 @@ ALTER TABLE `provider`
 -- Индексы таблицы `purchase`
 --
 ALTER TABLE `purchase`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`),
-  ADD KEY `good_id` (`good_id`),
-  ADD KEY `status_id` (`status_id`);
+  ADD PRIMARY KEY (`id_p`),
+  ADD KEY `shoes_id` (`size_id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `good_id` (`good_id`);
 
 --
 -- Индексы таблицы `shoesize`
@@ -456,7 +480,7 @@ ALTER TABLE `state`
 -- AUTO_INCREMENT для таблицы `avalibility`
 --
 ALTER TABLE `avalibility`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `category`
@@ -468,13 +492,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT для таблицы `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 
 --
 -- AUTO_INCREMENT для таблицы `good`
 --
 ALTER TABLE `good`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT для таблицы `material`
@@ -483,10 +507,16 @@ ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id_ord` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT для таблицы `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT для таблицы `provider`
@@ -498,7 +528,7 @@ ALTER TABLE `provider`
 -- AUTO_INCREMENT для таблицы `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_p` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `shoesize`
@@ -544,6 +574,13 @@ ALTER TABLE `good_material`
   ADD CONSTRAINT `good_material_ibfk_2` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
+-- Ограничения внешнего ключа таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`status_id`) REFERENCES `state` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
 -- Ограничения внешнего ключа таблицы `photo`
 --
 ALTER TABLE `photo`
@@ -553,9 +590,9 @@ ALTER TABLE `photo`
 -- Ограничения внешнего ключа таблицы `purchase`
 --
 ALTER TABLE `purchase`
-  ADD CONSTRAINT `purchase_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `purchase_ibfk_2` FOREIGN KEY (`good_id`) REFERENCES `avalibility` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `purchase_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `state` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `purchase_ibfk_1` FOREIGN KEY (`size_id`) REFERENCES `shoesize` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `purchase_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id_ord`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `purchase_ibfk_3` FOREIGN KEY (`good_id`) REFERENCES `good` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
