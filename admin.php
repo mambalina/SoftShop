@@ -27,6 +27,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0 main-menu">
             <li class="nav-item active">ПАНЕЛЬ АДМИНИСТРАТОРА</li>
+            <li class="nav-item "><a href="http://softshop.ua/mediawiki-1.32.0/index.php/Заглавная_страница" style="color: #2B81AF; margin-left: 10px" target="_blank">Руководство пользователя</a></li>
         </ul>
     </div>
 </nav>
